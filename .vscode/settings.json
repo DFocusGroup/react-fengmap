@@ -1,0 +1,11 @@
+{
+  "typescript.validate.enable": false,
+  "javascript.validate.enable": false,
+  "editor.formatOnSave": true,
+  "tslint.enable": false,
+  "npm.updateStrategy": "SEMVER",
+  "html.format.enable": false,
+  "eslint.enable": true,
+  "editor.insertSpaces": true,
+  "editor.tabSize": 2
+}

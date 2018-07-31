@@ -1,0 +1,15 @@
+.ant-layout-header {
+  background-color: #fff;
+  box-shadow: 0 2px 8px #f0f1f2;
+  margin-bottom: 6px;
+}
+
+.headerLogo {
+  height: 40px;
+  margin-right: 20px;
+}
+
+.headerTitle {
+  font-size: 18px;
+  font-weight: bold;
+}

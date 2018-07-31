@@ -1,20 +1,29 @@
 {
   "name": "react-fengmap-example",
   "homepage": "https://leftstick.github.io/react-fengmap",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "license": "MIT",
   "private": true,
   "dependencies": {
+    "antd": "^3.7.3",
+    "fengmap": "^2.1.2",
     "prop-types": "^15.6.2",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
-    "react-scripts": "^1.1.4",
-    "react-fengmap": "file:.."
+    "react-fengmap": "file:..",
+    "react-router": "^4.3.1",
+    "react-router-dom": "^4.3.1",
+    "react-syntax-highlighter": "^8.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "postinstall": "cp ./libs/fengmap.min-v2.1.23.js ./node_modules/fengmap/build/fengmap.min-v2.1.23.js"
+  },
+  "devDependencies": {
+    "ajv": "^6.5.2",
+    "babel-plugin-import": "^1.8.0",
+    "react-app-rewired": "^1.5.2",
+    "react-scripts": "^1.1.4"
   }
 }

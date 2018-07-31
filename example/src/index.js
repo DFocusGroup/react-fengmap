@@ -1,7 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import './index.css'
-import App from './App'
+import { destoryGlobalSpinner } from './helpers/view'
 
-ReactDOM.render(<App />, document.getElementById('root'))
+import Document from './Document'
+
+ReactDOM.render(<Document />, document.getElementById('root'))
+
+destoryGlobalSpinner()
