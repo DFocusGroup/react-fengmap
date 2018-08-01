@@ -12,13 +12,13 @@ export default function PropsDoc({ data }) {
             title: 'Prop',
             dataIndex: 'prop',
             key: 'prop',
-            width: 130
+            width: 150
           },
           {
             title: 'Type',
             dataIndex: 'type',
             key: 'type',
-            width: 90
+            width: 170
           },
           {
             title: 'Description',
@@ -29,6 +29,7 @@ export default function PropsDoc({ data }) {
         ]}
         dataSource={data}
         pagination={false}
+        rowKey="prop"
       />
     </div>
   )

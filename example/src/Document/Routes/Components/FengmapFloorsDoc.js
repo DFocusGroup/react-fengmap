@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Radio } from 'antd'
 import PropTypes from 'prop-types'
 import { withRouter } from 'react-router'
 
@@ -6,14 +7,28 @@ import SyntaxHighlighter from 'react-syntax-highlighter/prism'
 import { darcula } from 'react-syntax-highlighter/styles/prism'
 
 import fengmapSDK from 'fengmap/build/fengmap.min-v2.1.23'
-import { FengmapBase } from 'react-fengmap'
+import { FengmapFloors } from 'react-fengmap'
 
 import PropsDoc from '../../../Components/PropsDoc'
 import { getRouteDefinition } from '../../../helpers/view'
 
-class FengmapBaseDoc extends Component {
+class FengmapFloorsDoc extends Component {
   static propTypes = {
     location: PropTypes.object.isRequired
+  }
+
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      selectedFloor: null
+    }
+  }
+
+  changeFloor = e => {
+    this.setState({
+      selectedFloor: +e.target.value
+    })
   }
 
   render() {
@@ -31,7 +46,7 @@ class FengmapBaseDoc extends Component {
         <h3>用法</h3>
 
         <SyntaxHighlighter language="jsx" style={darcula}>
-          {`<FengmapBase mapOptions={MapOptions} events={Events} />`}
+          {`<FengmapFloors {...支持所有FengmapBase的props} floors={Floors} onFloorChange={onFloorChange}/>`}
         </SyntaxHighlighter>
 
         <br />
@@ -39,41 +54,18 @@ class FengmapBaseDoc extends Component {
         <PropsDoc
           data={[
             {
-              prop: 'mapOptions',
+              prop: 'floors',
               type: 'Object',
               description: (
                 <React.Fragment>
-                  请参考
-                  <a href="https://www.fengmap.com/docs/js/v2.1.1_beta/classes/fengmap.MapOptions.html">
-                    fengmap.MapOptions
-                  </a>
+                  {`{ availableValues: Array<Number>, value: Number }`}。 可用楼层数组，和选中的楼层
                 </React.Fragment>
               )
             },
             {
-              prop: 'events',
-              type: 'Object',
-              description: (
-                <React.Fragment>
-                  键值组合，key的可用值： [
-                  {[
-                    'focusGroupIDChanged',
-                    'loadComplete',
-                    'mapClickNode',
-                    'mapScaleLevelChanged',
-                    'scaleLevelChanged',
-                    'visibleGroupIDsChanged'
-                  ].map((e, i) => {
-                    return (
-                      <span key={i}>
-                        <code className="codeRef">{e}</code>
-                        {i !== 5 ? ',' : ''}
-                      </span>
-                    )
-                  })}
-                  ]，value是事件响应函数
-                </React.Fragment>
-              )
+              prop: 'onFloorChange',
+              type: 'Function',
+              description: '楼层切换时的回调函数'
             }
           ]}
         />
@@ -82,7 +74,17 @@ class FengmapBaseDoc extends Component {
 
         <div className="mapExample">
           <h3>示例</h3>
-          <FengmapBase
+
+          <Radio.Group value={`${this.state.selectedFloor}`} onChange={this.changeFloor}>
+            <Radio.Button value="1">1</Radio.Button>
+            <Radio.Button value="2">2</Radio.Button>
+            <Radio.Button value="3">3</Radio.Button>
+            <Radio.Button value="4">4</Radio.Button>
+            <Radio.Button value="5">5</Radio.Button>
+            <Radio.Button value="6">6</Radio.Button>
+          </Radio.Group>
+
+          <FengmapFloors
             fengmapSDK={fengmapSDK}
             mapId="10347"
             mapOptions={{
@@ -93,13 +95,9 @@ class FengmapBaseDoc extends Component {
               defaultMapScaleLevel: 20,
               defaultTiltAngle: 45
             }}
-            events={{
-              loadComplete(e, map) {
-                console.log('地图加载完毕', map)
-              },
-              mapClickNode(e, map) {
-                alert(`你点击的FID是： [${e.FID}]`)
-              }
+            floors={{
+              availableValues: [1, 2, 3, 4, 5, 6],
+              value: this.state.selectedFloor
             }}
             style={{
               width: '100%',
@@ -112,9 +110,9 @@ class FengmapBaseDoc extends Component {
           <SyntaxHighlighter language="jsx" style={darcula}>
             {`import fengmapSDK from 'fengmap'
             
-export default function Example() {
+export default function Example(props) {
   return (
-    <FengmapBase
+    <FengmapFloors
       fengmapSDK={fengmapSDK}
       mapId="10347"
       mapOptions={{
@@ -125,13 +123,9 @@ export default function Example() {
         defaultMapScaleLevel: 20,
         defaultTiltAngle: 45
       }}
-      events={{
-        loadComplete(e, map) {
-          console.log('地图加载完毕')
-        },
-        mapClickNode(e, map) {
-          alert(\`你点击的FID是： [\${e.FID}]\`)
-        }
+      floors={{
+        availableValues: [1, 2, 3, 4, 5, 6],
+        value: props.selectedFloor
       }}
       style={{
         width: '100%',
@@ -148,4 +142,4 @@ export default function Example() {
   }
 }
 
-export default withRouter(FengmapBaseDoc)
+export default withRouter(FengmapFloorsDoc)

@@ -14,6 +14,7 @@ npm install --save react-fengmap
 ## Usage
 
 ```jsx
+// 基础地图
 import React, { Component } from 'react'
 import fengmapSDK from 'fengmap'
 
@@ -23,6 +24,37 @@ class Example extends Component {
   render() {
     return (
       <FengmapBase
+        fengmapSDK={fengmapSDK}
+        mapId="10347"
+        mapOptions={{
+          key: '你的key',
+          //开发者申请应用名称
+          appName: '你的应用',
+          mapServerURL: '/maps/10347',
+          defaultMapScaleLevel: 20,
+          defaultTiltAngle: 45
+        }}
+        style={{
+          width: '800px',
+          height: '550px'
+        }}
+      />
+    )
+  }
+}
+```
+
+```jsx
+// 带楼层控制的地图
+import React, { Component } from 'react'
+import fengmapSDK from 'fengmap'
+
+import { FengmapFloors } from 'react-fengmap'
+
+class Example extends Component {
+  render() {
+    return (
+      <FengmapFloors
         fengmapSDK={fengmapSDK}
         mapId="10347"
         mapOptions={{

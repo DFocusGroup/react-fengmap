@@ -1,19 +1,17 @@
 import FengmapBaseDoc from './FengmapBaseDoc'
-import FengmapFloors from './FengmapFloors'
+import FengmapFloorsDoc from './FengmapFloorsDoc'
 
 export default [
   {
     url: '/fengmap-base',
-    menuTitle: 'fengmapBase',
-    displayTitle: '<fengmapBase />',
+    displayTitle: '<FengmapBase />',
     description: '基础地图组件',
     component: FengmapBaseDoc
   },
   {
     url: '/fengmap-floors',
-    menuTitle: 'fengmapFloors',
-    displayTitle: '<fengmapFloors />',
-    description: '待楼层控制的地图组件',
-    component: FengmapFloors
+    displayTitle: '<FengmapFloors />',
+    description: '带楼层控制的地图组件',
+    component: FengmapFloorsDoc
   }
 ]
