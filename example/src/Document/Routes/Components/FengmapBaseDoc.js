@@ -39,6 +39,26 @@ class FengmapBaseDoc extends Component {
         <PropsDoc
           data={[
             {
+              prop: 'mapId',
+              type: 'String',
+              description: '用来指定要打开哪个室内地图'
+            },
+            {
+              prop: 'style',
+              type: 'Object',
+              description: '指定地图容器样式'
+            },
+            {
+              prop: 'fengmapSDK',
+              type: 'Object',
+              description: '指定蜂鸟地图SDK'
+            },
+            {
+              prop: 'loadingTxt',
+              type: 'String',
+              description: '指定蜂鸟地图未加载完毕前的显示文字'
+            },
+            {
               prop: 'mapOptions',
               type: 'Object',
               description: (
