@@ -91,7 +91,7 @@ class FengmapFloorsDoc extends Component {
               key: 'e843c6307e42ec8de24d14a10e07ca20',
               //开发者申请应用名称
               appName: 'github演示应用',
-              mapServerURL: '/maps/10347',
+              mapServerURL: process.env.PUBLIC_URL + '/maps/10347',
               defaultMapScaleLevel: 20,
               defaultTiltAngle: 45
             }}
