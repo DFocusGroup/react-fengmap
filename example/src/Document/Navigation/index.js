@@ -1,10 +1,48 @@
 import React, { Component } from 'react'
-import { Layout } from 'antd'
+import { Link } from 'react-router-dom'
+import throttle from 'lodash/throttle'
+import { Layout, Drawer } from 'antd'
+import { RawRoutes } from '../Routes'
 
 import './index.css'
 import logoURL from '../../assets/logo.png'
 
 export default class Navigation extends Component {
+  constructor(props) {
+    super(props)
+
+    this._resizeHandler = throttle(this._resizeHandler.bind(this), 250)
+
+    this.state = {
+      screenWidth: 0,
+      openSmallScreenMenu: false
+    }
+  }
+
+  componentDidMount() {
+    window.addEventListener('resize', this._resizeHandler)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this._resizeHandler)
+  }
+
+  _resizeHandler() {
+    this.setState({
+      screenWidth: window.innerWidth
+    })
+  }
+
+  _toggleSmallScreenMenu = () => {
+    if (this.state.screenWidth > 1000) {
+      return
+    }
+
+    this.setState({
+      openSmallScreenMenu: !this.state.openSmallScreenMenu
+    })
+  }
+
   render() {
     return (
       <Layout.Header className="header">
@@ -21,8 +59,36 @@ export default class Navigation extends Component {
             data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"
           />
         </a>
-        <img src={logoURL} className="headerLogo" alt="" />
+        <img src={logoURL} className="headerLogo" alt="" onClick={this._toggleSmallScreenMenu} />
         <span className="headerTitle">蜂鸟地图-react</span>
+        <Drawer
+          title="文档"
+          placement="left"
+          closable
+          onClose={() =>
+            this.setState({
+              openSmallScreenMenu: false
+            })
+          }
+          visible={this.state.openSmallScreenMenu}
+        >
+          {RawRoutes.map(c => {
+            return (
+              <div key={c.url} className="smallScreenMenuItem">
+                <Link
+                  to={c.url}
+                  onClick={() =>
+                    this.setState({
+                      openSmallScreenMenu: false
+                    })
+                  }
+                >
+                  {c.displayTitle}
+                </Link>
+              </div>
+            )
+          })}
+        </Drawer>
       </Layout.Header>
     )
   }

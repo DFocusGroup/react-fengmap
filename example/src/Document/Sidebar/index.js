@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import { withRouter } from 'react-router'
+import throttle from 'lodash/throttle'
 import { Layout, Menu, Icon } from 'antd'
 
 import './index.css'
@@ -11,6 +12,31 @@ import components from '../Routes/Components'
 class Sidebar extends Component {
   static propTypes = {
     location: PropTypes.object.isRequired
+  }
+
+  constructor(props) {
+    super(props)
+
+    this._resizeHandler = throttle(this._resizeHandler.bind(this), 250)
+
+    this.state = {
+      screenWidth: 0
+    }
+  }
+
+  componentDidMount() {
+    window.addEventListener('resize', this._resizeHandler)
+    this._resizeHandler()
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this._resizeHandler)
+  }
+
+  _resizeHandler() {
+    this.setState({
+      screenWidth: window.innerWidth
+    })
   }
 
   getOpenKeys = () => {
@@ -23,6 +49,9 @@ class Sidebar extends Component {
   }
 
   render() {
+    if (this.state.screenWidth <= 1000) {
+      return null
+    }
     return (
       <Layout.Sider width={280} style={{ background: '#fff' }}>
         <Menu
