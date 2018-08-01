@@ -64,10 +64,10 @@ class FengmapFloors extends Component {
           ...events,
           loadComplete: (e, map) => {
             this.mapInstance = map
-            this._changeFloor()
-            if (events.loadComplete) {
-              events.loadComplete(e, map)
+            if (this.props.events.loadComplete) {
+              this.props.events.loadComplete(e, map)
             }
+            this._changeFloor()
           }
         }}
       />
