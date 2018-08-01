@@ -32,7 +32,6 @@ class Example extends Component {
           key: '你的key',
           //开发者申请应用名称
           appName: '你的应用',
-          mapServerURL: '/maps/10347',
           defaultMapScaleLevel: 20,
           defaultTiltAngle: 45
         }}
@@ -64,7 +63,6 @@ class Example extends Component {
           key: '你的key',
           //开发者申请应用名称
           appName: '你的应用',
-          mapServerURL: '/maps/10347',
           defaultMapScaleLevel: 20,
           defaultTiltAngle: 45
         }}
