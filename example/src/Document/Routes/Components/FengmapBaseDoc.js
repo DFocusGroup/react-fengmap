@@ -90,6 +90,7 @@ class FengmapBaseDoc extends Component {
               //开发者申请应用名称
               appName: 'github演示应用',
               mapServerURL: process.env.PUBLIC_URL + '/maps/10347',
+              mapThemeURL: process.env.PUBLIC_URL + '/maps/theme',
               defaultMapScaleLevel: 20,
               defaultTiltAngle: 45
             }}

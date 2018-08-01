@@ -2,11 +2,15 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Table } from 'antd'
 
+import './index.css'
+
 export default function PropsDoc({ data }) {
   return (
     <div>
       <h3>Props</h3>
       <Table
+        className="docTable"
+        scroll={{ x: true }}
         columns={[
           {
             title: 'Prop',
