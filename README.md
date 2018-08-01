@@ -55,6 +55,7 @@ import { FengmapFloors } from 'react-fengmap'
 
 class Example extends Component {
   render() {
+    const { selectedFloor } = this.props
     return (
       <FengmapFloors
         fengmapSDK={fengmapSDK}
@@ -66,6 +67,10 @@ class Example extends Component {
           mapServerURL: '/maps/10347',
           defaultMapScaleLevel: 20,
           defaultTiltAngle: 45
+        }}
+        floors={{
+          availableValues: [1, 2, 3, 4, 5, 6],
+          value: selectedFloor
         }}
         style={{
           width: '800px',
