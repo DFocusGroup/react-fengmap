@@ -31,7 +31,7 @@ class FengmapBaseDoc extends Component {
         <h3>用法</h3>
 
         <SyntaxHighlighter language="jsx" style={darcula}>
-          {`<FengmapBase mapOptions={MapOptions} events={Events} />`}
+          {`<FengmapBase mapId={MapId} style={Style} fengmapSDK={SDK} loadingTxt={LoadingText} mapOptions={MapOptions} events={Events} />`}
         </SyntaxHighlighter>
 
         <br />
