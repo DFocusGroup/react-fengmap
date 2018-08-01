@@ -11,6 +11,8 @@
 npm install --save react-fengmap
 ```
 
+完整 API 使用文档，请[这边走](https://dfocusfe.github.io/react-fengmap)
+
 ## Usage
 
 ```jsx
