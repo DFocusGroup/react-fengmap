@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { isChildrenValid } from './helpers/validator'
+import { isArray } from './helpers/object'
 
 const EVENTS = [
   'focusGroupIDChanged',
@@ -35,7 +37,8 @@ class FengmapBase extends Component {
       enableMapPinch: PropTypes.bool,
       enableMapRotate: PropTypes.bool,
       enableMapIncline: PropTypes.bool
-    })
+    }),
+    children: PropTypes.any
   }
 
   static defaultProps = {
@@ -47,10 +50,14 @@ class FengmapBase extends Component {
 
     this.mapContainer = React.createRef()
     this.loadingTxt = React.createRef()
+
+    isChildrenValid(props.children)
+
+    this.refs = null
   }
 
   _loadMap = mapId => {
-    const { mapOptions, events, fengmapSDK, gestureEnableController } = this.props
+    const { mapOptions, events, fengmapSDK } = this.props
     if (!mapId || !fengmapSDK) {
       return
     }
@@ -64,6 +71,7 @@ class FengmapBase extends Component {
         if (e === 'loadComplete') {
           this.loadingTxt.current.style['zIndex'] = -10
           this._configGestureEnableController()
+          this._initAllChildren(this.mapInstance)
         }
         if (events && events[e]) {
           events[e](event, this.mapInstance)
@@ -81,6 +89,17 @@ class FengmapBase extends Component {
         this.mapInstance.gestureEnableController[key] = gestureEnableController[key]
       })
     }
+  }
+
+  _initAllChildren = map => {
+    const { fengmapSDK } = this.props
+    const { refs } = this
+    if (!isArray(refs)) {
+      return
+    }
+    refs.forEach(ref => {
+      ref.current.load(map, fengmapSDK)
+    })
   }
 
   componentDidMount() {
@@ -105,12 +124,17 @@ class FengmapBase extends Component {
   }
 
   render() {
-    const { style, loadingTxt } = this.props
+    const { style, loadingTxt, children } = this.props
+    const cloneChildren = cloneElements(children)
+    if (cloneChildren) {
+      this.refs = cloneChildren.map(c => c.ref)
+    }
     return (
       <div style={Object.assign({}, style, { position: 'relative' })}>
         <div ref={this.mapContainer} style={INNER_STYLE} />
         <div ref={this.loadingTxt} style={INNER_STYLE}>
           {loadingTxt}
+          {cloneChildren ? cloneChildren.map(c => c.child) : null}
         </div>
       </div>
     )
@@ -118,3 +142,30 @@ class FengmapBase extends Component {
 }
 
 export default FengmapBase
+
+function cloneElements(children) {
+  if (!children) {
+    return null
+  }
+  if (!isArray(children)) {
+    const ref = React.createRef()
+    return [
+      {
+        child: React.cloneElement(children, {
+          key: 'onlyone',
+          ref
+        }),
+        ref
+      }
+    ]
+  }
+  return children.map(child => {
+    const ref = React.createRef
+    return {
+      child: React.cloneElement(child, {
+        ref
+      }),
+      ref
+    }
+  })
+}

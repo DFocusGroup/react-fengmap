@@ -8,6 +8,7 @@ import { Layout, Menu, Icon } from 'antd'
 import './index.css'
 
 import components from '../Routes/Components'
+import controls from '../Routes/Controls'
 
 class Sidebar extends Component {
   static propTypes = {
@@ -41,23 +42,39 @@ class Sidebar extends Component {
 
   getOpenKeys = () => {
     const { location } = this.props
-    const found = components.find(c => c.url === location.pathname)
+    const full = [...components, ...controls]
+    const found = full.find(c => c.url === location.pathname)
     if (!found) {
-      return [components[0].url]
+      return {
+        selectKey: components[0].url,
+        openKey: 'Components'
+      }
     }
-    return [found.url]
+    if (components.includes(found)) {
+      return {
+        selectKey: found.url,
+        openKey: 'Components'
+      }
+    }
+    if (controls.includes(found)) {
+      return {
+        selectKey: found.url,
+        openKey: 'Controls'
+      }
+    }
   }
 
   render() {
     if (this.state.screenWidth <= 1000) {
       return null
     }
+    const openKey = this.getOpenKeys()
     return (
       <Layout.Sider width={280} style={{ background: '#fff' }}>
         <Menu
           mode="inline"
-          defaultSelectedKeys={this.getOpenKeys()}
-          defaultOpenKeys={['Components']}
+          defaultSelectedKeys={[openKey.selectKey]}
+          defaultOpenKeys={[openKey.openKey]}
           style={{ height: '100%' }}
         >
           <Menu.SubMenu
@@ -70,6 +87,23 @@ class Sidebar extends Component {
             }
           >
             {components.map(c => {
+              return (
+                <Menu.Item key={c.url}>
+                  <Link to={c.url}>{c.displayTitle}</Link>
+                </Menu.Item>
+              )
+            })}
+          </Menu.SubMenu>
+          <Menu.SubMenu
+            key="Controls"
+            title={
+              <span>
+                <Icon type="code-o" />
+                Controls
+              </span>
+            }
+          >
+            {controls.map(c => {
               return (
                 <Menu.Item key={c.url}>
                   <Link to={c.url}>{c.displayTitle}</Link>

@@ -64,7 +64,11 @@ class FengmapBaseDoc extends Component {
               description: (
                 <React.Fragment>
                   请参考
-                  <a href="https://www.fengmap.com/docs/js/v2.1.1_beta/classes/fengmap.MapOptions.html">
+                  <a
+                    href="https://www.fengmap.com/docs/js/v2.1.1_beta/classes/fengmap.MapOptions.html"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     fengmap.MapOptions
                   </a>
                 </React.Fragment>
@@ -94,6 +98,29 @@ class FengmapBaseDoc extends Component {
                   ]，value是事件响应函数
                 </React.Fragment>
               )
+            },
+            {
+              prop: 'gestureEnableController',
+              type: 'Object',
+              description: (
+                <React.Fragment>
+                  键值组合，key的可用值： [
+                  {['enableMapPan', 'enableMapPinch', 'enableMapRotate', 'enableMapIncline'].map((e, i) => {
+                    return (
+                      <span key={i}>
+                        <code className="codeRef">{e}</code>
+                        {i !== 3 ? ',' : ''}
+                      </span>
+                    )
+                  })}
+                  ]，
+                  <code className="codeRef">value</code>
+                  是各状态的
+                  <code className="codeRef">boolean</code>
+                  值。 各<code className="codeRef">key</code>
+                  依次表示'禁用平移地图', '禁用缩放地图', '禁用旋转地图', '禁用倾斜地图'
+                </React.Fragment>
+              )
             }
           ]}
         />
@@ -117,18 +144,14 @@ class FengmapBaseDoc extends Component {
             events={{
               loadComplete(e, map) {
                 console.log('地图加载完毕', map)
-                // new fengmapSDK.zoomControl(map, {
-                //   position: fengmapSDK.controlPositon.RIGHT_TOP,
-                //   imgURL: '/assets/'
-                // })
               },
               mapClickNode(e, map) {
                 alert(`你点击的FID是： [${e.FID}]`)
               }
             }}
-            // gestureEnableController={{
-            //   enableMapPinch: false
-            // }}
+            gestureEnableController={{
+              enableMapPinch: true
+            }}
             style={{
               width: '100%',
               height: '550px'
@@ -160,6 +183,9 @@ export default function Example() {
         mapClickNode(e, map) {
           alert(\`你点击的FID是： [\${e.FID}]\`)
         }
+      }}
+      gestureEnableController={{
+        enableMapPinch: true // 允许鼠标滚轮或者手势pinch缩放地图
       }}
       style={{
         width: '100%',
