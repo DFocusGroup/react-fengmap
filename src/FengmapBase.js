@@ -29,7 +29,13 @@ class FengmapBase extends Component {
     mapId: PropTypes.string,
     style: PropTypes.object,
     fengmapSDK: PropTypes.any.isRequired,
-    loadingTxt: PropTypes.string
+    loadingTxt: PropTypes.string,
+    gestureEnableController: PropTypes.shape({
+      enableMapPan: PropTypes.bool,
+      enableMapPinch: PropTypes.bool,
+      enableMapRotate: PropTypes.bool,
+      enableMapIncline: PropTypes.bool
+    })
   }
 
   static defaultProps = {
@@ -44,7 +50,7 @@ class FengmapBase extends Component {
   }
 
   _loadMap = mapId => {
-    const { mapOptions, events, fengmapSDK } = this.props
+    const { mapOptions, events, fengmapSDK, gestureEnableController } = this.props
     if (!mapId || !fengmapSDK) {
       return
     }
@@ -57,6 +63,7 @@ class FengmapBase extends Component {
       this.mapInstance.on(e, event => {
         if (e === 'loadComplete') {
           this.loadingTxt.current.style['zIndex'] = -10
+          this._configGestureEnableController()
         }
         if (events && events[e]) {
           events[e](event, this.mapInstance)
@@ -65,6 +72,15 @@ class FengmapBase extends Component {
     })
 
     this.mapInstance.openMapById(mapId)
+  }
+
+  _configGestureEnableController = () => {
+    const { gestureEnableController } = this.props
+    if (gestureEnableController) {
+      Object.keys(gestureEnableController).forEach(key => {
+        this.mapInstance.gestureEnableController[key] = gestureEnableController[key]
+      })
+    }
   }
 
   componentDidMount() {

@@ -117,11 +117,18 @@ class FengmapBaseDoc extends Component {
             events={{
               loadComplete(e, map) {
                 console.log('地图加载完毕', map)
+                // new fengmapSDK.zoomControl(map, {
+                //   position: fengmapSDK.controlPositon.RIGHT_TOP,
+                //   imgURL: '/assets/'
+                // })
               },
               mapClickNode(e, map) {
                 alert(`你点击的FID是： [${e.FID}]`)
               }
             }}
+            // gestureEnableController={{
+            //   enableMapPinch: false
+            // }}
             style={{
               width: '100%',
               height: '550px'
