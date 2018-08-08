@@ -70,7 +70,9 @@ class FengmapFloors extends Component {
             this._changeFloor()
           }
         }}
-      />
+      >
+        {props.children}
+      </FengmapBase>
     )
   }
 }

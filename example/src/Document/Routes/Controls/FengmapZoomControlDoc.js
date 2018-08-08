@@ -6,7 +6,7 @@ import SyntaxHighlighter from 'react-syntax-highlighter/prism'
 import { darcula } from 'react-syntax-highlighter/styles/prism'
 
 import fengmapSDK from 'fengmap/build/fengmap.min-v2.1.23'
-import { FengmapBase, FengmapZoomControl } from 'react-fengmap'
+import { FengmapFloors, FengmapZoomControl } from 'react-fengmap'
 
 import PropsDoc from '../../../Components/PropsDoc'
 import { getRouteDefinition } from '../../../helpers/view'
@@ -78,7 +78,7 @@ class FengmapZoomControlDoc extends Component {
         <div className="mapExample">
           <h3>示例</h3>
 
-          <FengmapBase
+          <FengmapFloors
             fengmapSDK={fengmapSDK}
             mapId="10347"
             mapOptions={{
@@ -93,6 +93,10 @@ class FengmapZoomControlDoc extends Component {
             gestureEnableController={{
               enableMapPinch: false
             }}
+            floors={{
+              availableValues: [1, 2, 3, 4, 5, 6],
+              value: 2
+            }}
             style={{
               width: '100%',
               height: '550px'
@@ -104,7 +108,7 @@ class FengmapZoomControlDoc extends Component {
                 imgURL: process.env.PUBLIC_URL + '/assets/'
               }}
             />
-          </FengmapBase>
+          </FengmapFloors>
 
           <br />
 
@@ -113,7 +117,7 @@ class FengmapZoomControlDoc extends Component {
             
 export default function Example(props) {
   return (
-    <FengmapBase
+    <FengmapFloors
       fengmapSDK={fengmapSDK}
       mapId="10347"
       mapOptions={{
@@ -127,13 +131,17 @@ export default function Example(props) {
       gestureEnableController={{
         enableMapPinch: false // 禁用鼠标滚轮或者手势pinch缩放地图
       }}
+      floors={{
+        availableValues: [1, 2, 3, 4, 5, 6],
+        value: 2
+      }}
       style={{
         width: '100%',
         height: '550px'
       }}
     >
       <FengmapZoomControl ctrlOptions={{ position: fengmapSDK.controlPositon.RIGHT_TOP, imgURL: '/assets/' }} />
-    </FengmapBase>
+    </FengmapFloors>
   )
 }
 `}
