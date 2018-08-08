@@ -45,9 +45,16 @@ class FengmapZoomControlDoc extends Component {
         <h3>用法</h3>
 
         <SyntaxHighlighter language="jsx" style={darcula}>
-          {`<FengmapBase mapId={MapId} style={Style} fengmapSDK={SDK} mapOptions={MapOptions} >
+          {`// 基础地图
+<FengmapBase mapId={MapId} style={Style} fengmapSDK={SDK} mapOptions={MapOptions} >
   <FengmapZoomControl ctrlOptions={CtrlOptions} />
-</FengmapBase>`}
+</FengmapBase>
+
+// 带楼层控制的地图
+<FengmapFloors mapId={MapId} style={Style} fengmapSDK={SDK} mapOptions={MapOptions} >
+  <FengmapZoomControl ctrlOptions={CtrlOptions} />
+</FengmapFloors>
+`}
         </SyntaxHighlighter>
 
         <br />
