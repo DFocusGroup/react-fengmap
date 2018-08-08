@@ -98,7 +98,12 @@ class FengmapZoomControlDoc extends Component {
               height: '550px'
             }}
           >
-            <FengmapZoomControl ctrlOptions={{ position: fengmapSDK.controlPositon.RIGHT_TOP, imgURL: '/assets/' }} />
+            <FengmapZoomControl
+              ctrlOptions={{
+                position: fengmapSDK.controlPositon.RIGHT_TOP,
+                imgURL: process.env.PUBLIC_URL + '/assets/'
+              }}
+            />
           </FengmapBase>
 
           <br />
