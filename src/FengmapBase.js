@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { isChildrenValid } from './helpers/validator'
 import { isArray } from './helpers/object'
+import { isOrderIE } from './helpers/browser'
 
 const EVENTS = [
   'focusGroupIDChanged',
@@ -32,6 +33,7 @@ class FengmapBase extends Component {
     style: PropTypes.object,
     fengmapSDK: PropTypes.any.isRequired,
     loadingTxt: PropTypes.string,
+    supportTxt: PropTypes.string,
     gestureEnableController: PropTypes.shape({
       enableMapPan: PropTypes.bool,
       enableMapPinch: PropTypes.bool,
@@ -42,7 +44,8 @@ class FengmapBase extends Component {
   }
 
   static defaultProps = {
-    loadingTxt: '地图加载中...'
+    loadingTxt: '地图加载中...',
+    supportTxt: '您使用的浏览器暂不支持地图，请升级或改用Chrome获取更好的服务'
   }
 
   constructor(props) {
@@ -58,7 +61,7 @@ class FengmapBase extends Component {
 
   _loadMap = mapId => {
     const { mapOptions, events, fengmapSDK } = this.props
-    if (!mapId || !fengmapSDK) {
+    if (!mapId || !fengmapSDK || isOrderIE()) {
       return
     }
     if (this.mapInstance) {
@@ -125,6 +128,21 @@ class FengmapBase extends Component {
 
   render() {
     const { style, loadingTxt, children } = this.props
+
+    if (isOrderIE()) {
+      return (
+        <div
+          style={Object.assign({}, style, {
+            display: 'table-cell',
+            verticalAlign: 'middle',
+            textAlign: 'center'
+          })}
+        >
+          <span>{this.props.supportTxt}</span>
+        </div>
+      )
+    }
+
     const cloneChildren = cloneElements(children)
     if (cloneChildren) {
       this.refs = cloneChildren.map(c => c.ref)

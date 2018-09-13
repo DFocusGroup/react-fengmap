@@ -5,12 +5,12 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "antd": "^3.8.0",
+    "antd": "^3.9.2",
     "es6-shim": "^0.35.3",
     "fengmap": "^2.1.2",
     "prop-types": "^15.6.2",
-    "react": "^16.4.2",
-    "react-dom": "^16.4.2",
+    "react": "^16.5.0",
+    "react-dom": "^16.5.0",
     "react-fengmap": "file:..",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
@@ -22,9 +22,9 @@
     "postinstall": "cp ./libs/fengmap.min-v2.1.23.js ./node_modules/fengmap/build/fengmap.min-v2.1.23.js"
   },
   "devDependencies": {
-    "ajv": "^6.5.2",
+    "ajv": "^6.5.3",
     "babel-plugin-import": "^1.8.0",
-    "react-app-rewired": "^1.5.2",
-    "react-scripts": "^1.1.4"
+    "react-app-rewired": "^1.6.2",
+    "react-scripts": "^1.1.5"
   }
 }
