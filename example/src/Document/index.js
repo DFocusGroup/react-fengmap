@@ -38,6 +38,7 @@ export default class Document extends Component {
 
   render() {
     const padding = this.state.screenWidth <= 1000 ? '5px' : '0 24px 24px'
+    const contentWidth = this.state.screenWidth > 1000 ? this.state.screenWidth - 280 - 48 - 20 : this.state.screenWidth
     return (
       <HashRouter>
         <Layout>
@@ -45,7 +46,7 @@ export default class Document extends Component {
           <Layout>
             <Sidebar />
             <Layout style={{ padding }}>
-              <Layout.Content style={{ background: '#fff', padding, margin: 0, minHeight: 900 }}>
+              <Layout.Content style={{ background: '#fff', padding, margin: 0, minHeight: 900, width: contentWidth }}>
                 <Routes />
               </Layout.Content>
             </Layout>

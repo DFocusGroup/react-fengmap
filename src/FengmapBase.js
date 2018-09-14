@@ -107,7 +107,9 @@ class FengmapBase extends Component {
 
   componentDidMount() {
     this._loadMap(this.props.mapId)
-    this.loadingTxt.current.style['zIndex'] = 10
+    if (this.loadingTxt && this.loadingTxt.current) {
+      this.loadingTxt.current.style['zIndex'] = 10
+    }
   }
 
   componentDidUpdate(prevProps) {
@@ -138,7 +140,7 @@ class FengmapBase extends Component {
             textAlign: 'center'
           })}
         >
-          <span>{this.props.supportTxt}</span>
+          <span style={{ display: 'inline-block' }}>{this.props.supportTxt}</span>
         </div>
       )
     }

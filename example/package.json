@@ -6,7 +6,7 @@
   "private": true,
   "dependencies": {
     "antd": "^3.9.2",
-    "es6-shim": "^0.35.3",
+    "core-js": "^2.5.7",
     "fengmap": "^2.1.2",
     "prop-types": "^15.6.2",
     "react": "^16.5.0",

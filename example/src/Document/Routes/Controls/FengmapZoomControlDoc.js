@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { withRouter } from 'react-router'
 
 import SyntaxHighlighter from 'react-syntax-highlighter/prism'
 import { darcula } from 'react-syntax-highlighter/styles/prism'
@@ -9,11 +8,11 @@ import fengmapSDK from 'fengmap/build/fengmap.min-v2.1.23'
 import { FengmapFloors, FengmapZoomControl } from 'react-fengmap'
 
 import PropsDoc from '../../../Components/PropsDoc'
-import { getRouteDefinition } from '../../../helpers/view'
+import withAPIDoc from '../../../Components/APIDoc'
 
 class FengmapZoomControlDoc extends Component {
   static propTypes = {
-    location: PropTypes.object.isRequired
+    screenWidth: PropTypes.number
   }
 
   constructor(props) {
@@ -31,19 +30,10 @@ class FengmapZoomControlDoc extends Component {
   }
 
   render() {
-    const { location } = this.props
-    const definition = getRouteDefinition(location.pathname)
-    if (!definition) {
-      return
-    }
-
+    const { screenWidth } = this.props
+    const contentWidth = screenWidth > 1000 ? screenWidth - 280 - 24 * 4 - 40 : screenWidth
     return (
-      <div>
-        <h1>{definition.displayTitle}</h1>
-        <p>{definition.description}</p>
-
-        <h3>用法</h3>
-
+      <React.Fragment>
         <SyntaxHighlighter language="jsx" style={darcula}>
           {`// 基础地图
 <FengmapBase mapId={MapId} style={Style} fengmapSDK={SDK} mapOptions={MapOptions} >
@@ -105,7 +95,7 @@ class FengmapZoomControlDoc extends Component {
               value: 2
             }}
             style={{
-              width: '100%',
+              width: `${contentWidth}px`,
               height: '550px'
             }}
           >
@@ -154,9 +144,9 @@ export default function Example(props) {
 `}
           </SyntaxHighlighter>
         </div>
-      </div>
+      </React.Fragment>
     )
   }
 }
 
-export default withRouter(FengmapZoomControlDoc)
+export default withAPIDoc(FengmapZoomControlDoc)
