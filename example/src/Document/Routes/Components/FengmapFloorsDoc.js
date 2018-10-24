@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import SyntaxHighlighter from 'react-syntax-highlighter/prism'
 import { darcula } from 'react-syntax-highlighter/styles/prism'
 
-import fengmapSDK from 'fengmap/build/fengmap.min-v2.1.23'
+import fengmapSDK from 'fengmap'
 import { FengmapFloors } from 'react-fengmap'
 
 import PropsDoc from '../../../Components/PropsDoc'
