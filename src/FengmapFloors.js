@@ -5,6 +5,7 @@ import { isNil } from './helpers/object'
 
 class FengmapFloors extends Component {
   static propTypes = {
+    reference: PropTypes.any,
     mapOptions: PropTypes.object,
     events: PropTypes.object,
     floors: PropTypes.shape({
@@ -59,6 +60,7 @@ class FengmapFloors extends Component {
     return (
       <FengmapBase
         {...props}
+        ref={props.reference}
         mapOptions={Object.assign({}, mapOptions, { defaultVisibleGroups: [], defaultFocusGroup: null })}
         events={{
           ...events,
@@ -77,7 +79,7 @@ class FengmapFloors extends Component {
   }
 }
 
-export default FengmapFloors
+export default React.forwardRef((props, ref) => <FengmapFloors reference={ref} {...props} />)
 
 function omit(obj, ...keys) {
   const newObj = {}

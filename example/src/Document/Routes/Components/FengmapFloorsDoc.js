@@ -22,6 +22,14 @@ class FengmapFloorsDoc extends Component {
     this.state = {
       selectedFloor: null
     }
+
+    this.container = React.createRef()
+  }
+
+  componentDidMount() {
+    setTimeout(() => {
+      console.log(this.container.current)
+    }, 2000)
   }
 
   changeFloor = e => {
@@ -75,6 +83,7 @@ class FengmapFloorsDoc extends Component {
           </Radio.Group>
 
           <FengmapFloors
+            ref={this.container}
             fengmapSDK={fengmapSDK}
             mapId="10347"
             mapOptions={{

@@ -27,6 +27,7 @@ const INNER_STYLE = {
 
 class FengmapBase extends Component {
   static propTypes = {
+    reference: PropTypes.any,
     mapOptions: PropTypes.object.isRequired,
     events: PropTypes.object,
     mapId: PropTypes.string,
@@ -129,7 +130,7 @@ class FengmapBase extends Component {
   }
 
   render() {
-    const { style, loadingTxt, children } = this.props
+    const { style, loadingTxt, children, reference } = this.props
 
     if (isOrderIE()) {
       return (
@@ -150,7 +151,7 @@ class FengmapBase extends Component {
       this.refs = cloneChildren.map(c => c.ref)
     }
     return (
-      <div style={Object.assign({}, style, { position: 'relative' })}>
+      <div style={Object.assign({}, style, { position: 'relative' })} ref={reference}>
         <div ref={this.mapContainer} style={INNER_STYLE} />
         <div ref={this.loadingTxt} style={INNER_STYLE}>
           {loadingTxt}
@@ -161,7 +162,7 @@ class FengmapBase extends Component {
   }
 }
 
-export default FengmapBase
+export default React.forwardRef((props, ref) => <FengmapBase reference={ref} {...props} />)
 
 function cloneElements(children) {
   if (!children) {
