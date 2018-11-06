@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { Radio } from 'antd'
 import PropTypes from 'prop-types'
 
-import SyntaxHighlighter from 'react-syntax-highlighter/prism'
-import { darcula } from 'react-syntax-highlighter/styles/prism'
+import { default as SyntaxHighlighter } from 'react-syntax-highlighter/dist/esm/prism'
+import { darcula } from 'react-syntax-highlighter/dist/styles/prism'
 
 import fengmapSDK from 'fengmap'
 import { FengmapFloors } from 'react-fengmap'
