@@ -1,6 +1,6 @@
 {
   "name": "react-fengmap",
-  "version": "1.1.3",
+  "version": "1.2.0",
   "description": "",
   "author": "leftstick",
   "license": "MIT",
@@ -40,7 +40,7 @@
     "eslint-plugin-promise": "^3.8.0",
     "eslint-plugin-react": "^7.11.1",
     "eslint-plugin-standard": "^3.1.0",
-    "gh-pages": "^1.2.0",
+    "gh-pages": "^2.0.1",
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
     "react-scripts": "^1.1.5",

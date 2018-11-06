@@ -155,8 +155,8 @@ class FengmapBase extends Component {
         <div ref={this.mapContainer} style={INNER_STYLE} />
         <div ref={this.loadingTxt} style={INNER_STYLE}>
           {loadingTxt}
-          {cloneChildren ? cloneChildren.map(c => c.child) : null}
         </div>
+        {cloneChildren ? cloneChildren.map(c => c.child) : null}
       </div>
     )
   }

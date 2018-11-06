@@ -5,12 +5,12 @@ import SyntaxHighlighter from 'react-syntax-highlighter/prism'
 import { darcula } from 'react-syntax-highlighter/styles/prism'
 
 import fengmapSDK from 'fengmap'
-import { FengmapFloors, FengmapZoomControl } from 'react-fengmap'
+import { FengmapBase, FengmapRotateControl } from 'react-fengmap'
 
 import PropsDoc from '../../../Components/PropsDoc'
 import withAPIDoc from '../../../Components/APIDoc'
 
-class FengmapZoomControlDoc extends Component {
+class FengmapRotateControlDoc extends Component {
   static propTypes = {
     screenWidth: PropTypes.number
   }
@@ -37,12 +37,12 @@ class FengmapZoomControlDoc extends Component {
         <SyntaxHighlighter language="jsx" style={darcula}>
           {`// 基础地图
 <FengmapBase mapId={MapId} style={Style} fengmapSDK={SDK} mapOptions={MapOptions} >
-  <FengmapZoomControl ctrlOptions={CtrlOptions} />
+  <FengmapRotateControl ctrlOptions={CtrlOptions} />
 </FengmapBase>
 
 // 带楼层控制的地图
 <FengmapFloors mapId={MapId} style={Style} fengmapSDK={SDK} mapOptions={MapOptions} >
-  <FengmapZoomControl ctrlOptions={CtrlOptions} />
+  <FengmapRotateControl ctrlOptions={CtrlOptions} />
 </FengmapFloors>
 `}
         </SyntaxHighlighter>
@@ -75,7 +75,7 @@ class FengmapZoomControlDoc extends Component {
         <div className="mapExample">
           <h3>示例</h3>
 
-          <FengmapFloors
+          <FengmapBase
             fengmapSDK={fengmapSDK}
             mapId="10347"
             mapOptions={{
@@ -90,22 +90,17 @@ class FengmapZoomControlDoc extends Component {
             gestureEnableController={{
               enableMapPinch: false
             }}
-            floors={{
-              availableValues: [1, 2, 3, 4, 5, 6],
-              value: 2
-            }}
             style={{
               width: `${contentWidth}px`,
               height: '550px'
             }}
           >
-            <FengmapZoomControl
+            <FengmapRotateControl
               ctrlOptions={{
-                position: fengmapSDK.controlPositon.RIGHT_TOP,
-                imgURL: process.env.PUBLIC_URL + '/assets/'
+                position: fengmapSDK.controlPositon.LEFT_BOTTOM
               }}
             />
-          </FengmapFloors>
+          </FengmapBase>
 
           <br />
 
@@ -114,7 +109,7 @@ class FengmapZoomControlDoc extends Component {
             
 export default function Example(props) {
   return (
-    <FengmapFloors
+    <FengmapBase
       fengmapSDK={fengmapSDK}
       mapId="10347"
       mapOptions={{
@@ -128,17 +123,17 @@ export default function Example(props) {
       gestureEnableController={{
         enableMapPinch: false // 禁用鼠标滚轮或者手势pinch缩放地图
       }}
-      floors={{
-        availableValues: [1, 2, 3, 4, 5, 6],
-        value: 2
-      }}
       style={{
         width: '100%',
         height: '550px'
       }}
     >
-      <FengmapZoomControl ctrlOptions={{ position: fengmapSDK.controlPositon.RIGHT_TOP, imgURL: '/assets/' }} />
-    </FengmapFloors>
+      <FengmapRotateControl
+        ctrlOptions={{
+          position: fengmapSDK.controlPositon.RIGHT_BOTTOM
+        }}
+      />
+    </FengmapBase>
   )
 }
 `}
@@ -149,4 +144,4 @@ export default function Example(props) {
   }
 }
 
-export default withAPIDoc(FengmapZoomControlDoc)
+export default withAPIDoc(FengmapRotateControlDoc)
