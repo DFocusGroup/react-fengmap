@@ -90,7 +90,6 @@ class FengmapFloorControlDoc extends Component {
                 position: fengmapSDK.controlPositon.RIGHT_BOTTOM,
                 showBtnCount: 7
               }}
-              availableFloors={[1, 2, 3, 4, 5, 6]}
               onFloorChange={this.changeFloor}
             />
           </FengmapBase>
@@ -126,7 +125,6 @@ export default function Example(props) {
           position: fengmapSDK.controlPositon.RIGHT_BOTTOM,
           showBtnCount: 7
         }}
-        availableFloors={[1, 2, 3, 4, 5, 6]}
         onFloorChange={this.changeFloor}
       />
     </FengmapBase>
