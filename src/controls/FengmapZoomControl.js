@@ -13,7 +13,7 @@ class FengmapZoomControl extends FengmapBaseControl {
     }).isRequired
   }
 
-  load = (map, fengmapSDK) => {
+  load = (map, fengmapSDK, parent) => {
     const { ctrlOptions } = this.props
     new fengmapSDK.zoomControl(map, ctrlOptions)
   }

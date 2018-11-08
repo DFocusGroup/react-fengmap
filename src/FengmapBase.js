@@ -27,6 +27,7 @@ const INNER_STYLE = {
 
 class FengmapBase extends Component {
   static propTypes = {
+    isFengmapBase: PropTypes.bool,
     reference: PropTypes.any,
     mapOptions: PropTypes.object.isRequired,
     events: PropTypes.object,
@@ -58,6 +59,8 @@ class FengmapBase extends Component {
     isChildrenValid(props.children)
 
     this.refs = null
+
+    this.isFengmapBase = props.isFengmapBase === undefined ? true : props.isFengmapBase
   }
 
   _loadMap = mapId => {
@@ -102,7 +105,7 @@ class FengmapBase extends Component {
       return
     }
     refs.forEach(ref => {
-      ref.current.load(map, fengmapSDK)
+      ref.current.load(map, fengmapSDK, this)
     })
   }
 

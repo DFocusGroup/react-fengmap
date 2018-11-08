@@ -1,5 +1,6 @@
 import FengmapZoomControlDoc from './FengmapZoomControlDoc'
 import FengmapRotateControlDoc from './FengmapRotateControlDoc'
+import FengmapFloorControlDoc from './FengmapFloorControlDoc'
 
 export default [
   {
@@ -13,5 +14,11 @@ export default [
     displayTitle: '<FengmapRotateControl />',
     description: '地图旋转控件',
     component: FengmapRotateControlDoc
+  },
+  {
+    url: '/fengmap-floorcontrol',
+    displayTitle: '<FengmapFloorControl />',
+    description: '地图楼层切换控件',
+    component: FengmapFloorControlDoc
   }
 ]

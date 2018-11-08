@@ -60,6 +60,7 @@ class FengmapFloors extends Component {
     return (
       <FengmapBase
         {...props}
+        isFengmapBase={false}
         ref={props.reference}
         mapOptions={Object.assign({}, mapOptions, { defaultVisibleGroups: [], defaultFocusGroup: null })}
         events={{

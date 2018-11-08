@@ -78,7 +78,7 @@ class FengmapRotateControl extends FengmapBaseControl {
     }
   }
 
-  load = (map, fengmapSDK) => {
+  load = (map, fengmapSDK, parent) => {
     const POSITIONS = [
       fengmapSDK.controlPositon.LEFT_BOTTOM,
       fengmapSDK.controlPositon.LEFT_TOP,
