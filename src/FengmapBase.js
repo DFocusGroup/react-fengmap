@@ -183,11 +183,12 @@ function cloneElements(children) {
       }
     ]
   }
-  return children.map(child => {
-    const ref = React.createRef
+  return children.map((child, i) => {
+    const ref = React.createRef()
     return {
       child: React.cloneElement(child, {
-        ref
+        ref,
+        key: i
       }),
       ref
     }

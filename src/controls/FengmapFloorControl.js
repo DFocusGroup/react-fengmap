@@ -13,8 +13,7 @@ class FengmapFloorControl extends FengmapBaseControl {
       }),
       imgURL: PropTypes.string
     }).isRequired,
-    onFloorChange: PropTypes.func,
-    availableFloors: PropTypes.arrayOf(PropTypes.number)
+    onFloorChange: PropTypes.func
   }
 
   load = (map, fengmapSDK, parent) => {
@@ -24,10 +23,18 @@ class FengmapFloorControl extends FengmapBaseControl {
     }
     const control = new fengmapSDK.buttonGroupsControl(map, ctrlOptions)
     control.onChange((groups, allLayer) => {
-      const { onFloorChange, availableFloors } = this.props
+      const { onFloorChange } = this.props
       if (!onFloorChange) {
         return
       }
+
+      const availableFloors = map.listGroups.map(g => {
+        if (g.gname.toLowerCase().indexOf('f') > -1) {
+          return +g.gname.match(/\d+/)[0]
+        }
+        return +g.gname.match(/\d+/)[0] * -1
+      })
+
       onFloorChange({
         floorLevel: availableFloors ? availableFloors[map.focusGroupID - 1] : undefined,
         groupId: map.focusGroupID
