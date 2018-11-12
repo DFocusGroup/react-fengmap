@@ -32,7 +32,21 @@ class FengmapRotateControl extends FengmapBaseControl {
         x: PropTypes.number.isRequired,
         y: PropTypes.number.isRequired
       })
-    }).isRequired
+    }).isRequired,
+    angle(props, propName, componentName) {
+      if (props[propName] === undefined) {
+        return true
+      }
+      if (Object.prototype.toString.call(props[propName]) !== '[object Number]') {
+        throw new Error(
+          'Invalid prop `' + propName + '` supplied to' + ' `' + componentName + '`. Must be number > 0 && < 360'
+        )
+      }
+    }
+  }
+
+  static defaultProps = {
+    angle: 15
   }
 
   constructor(props) {
@@ -109,7 +123,8 @@ class FengmapRotateControl extends FengmapBaseControl {
   }
 
   _getNextRotateAngle = rotateAngle => {
-    let next = rotateAngle + 30
+    const { angle } = this.props
+    let next = rotateAngle + angle
     if (next <= 360) {
       return next
     }
