@@ -37,12 +37,12 @@ class FengmapRotateControlDoc extends Component {
         <SyntaxHighlighter language="jsx" style={darcula}>
           {`// 基础地图
 <FengmapBase mapId={MapId} style={Style} fengmapSDK={SDK} mapOptions={MapOptions} >
-  <FengmapRotateControl ctrlOptions={CtrlOptions} />
+  <FengmapRotateControl ctrlOptions={CtrlOptions} angle={Angle} />
 </FengmapBase>
 
 // 带楼层控制的地图
 <FengmapFloors mapId={MapId} style={Style} fengmapSDK={SDK} mapOptions={MapOptions} >
-  <FengmapRotateControl ctrlOptions={CtrlOptions} />
+  <FengmapRotateControl ctrlOptions={CtrlOptions} angle={Angle} />
 </FengmapFloors>
 `}
         </SyntaxHighlighter>
@@ -66,6 +66,11 @@ class FengmapRotateControlDoc extends Component {
                   </a>
                 </React.Fragment>
               )
+            },
+            {
+              prop: 'angle',
+              type: 'Number',
+              description: '单次转向角度，一个在(0, 360)的数值'
             }
           ]}
         />
@@ -96,6 +101,7 @@ class FengmapRotateControlDoc extends Component {
             }}
           >
             <FengmapRotateControl
+              angle={15}
               ctrlOptions={{
                 position: fengmapSDK.controlPositon.RIGHT_BOTTOM
               }}
@@ -129,6 +135,7 @@ export default function Example(props) {
       }}
     >
       <FengmapRotateControl
+        angle={15}
         ctrlOptions={{
           position: fengmapSDK.controlPositon.RIGHT_BOTTOM
         }}
