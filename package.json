@@ -1,6 +1,6 @@
 {
   "name": "react-fengmap",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "description": "",
   "author": "leftstick",
   "typings": "typings/index.d.ts",
@@ -49,7 +49,7 @@
     "rollup-plugin-commonjs": "^9.2.0",
     "rollup-plugin-node-resolve": "^3.4.0",
     "rollup-plugin-peer-deps-external": "^2.2.0",
-    "rollup-plugin-postcss": "^1.6.2",
+    "rollup-plugin-postcss": "^1.6.3",
     "rollup-plugin-url": "^2.0.1"
   },
   "files": [

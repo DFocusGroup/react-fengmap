@@ -7,13 +7,13 @@ export function isChildrenValid(children) {
   }
 
   if (!isArray(children)) {
-    if (VALID_SUB_COMPONENTS.every(c => !c.isPrototypeOf(children.type))) {
+    if (VALID_SUB_COMPONENTS.every(c => !(children.type.prototype instanceof c))) {
       throw new Error(`${children} is not a valid child for <FengmapBase />`)
     }
     return true
   }
 
-  const child = children.find(child => VALID_SUB_COMPONENTS.every(c => !c.isPrototypeOf(child.type)))
+  const child = children.find(child => VALID_SUB_COMPONENTS.every(c => !(child.type.prototype instanceof c)))
   if (child) {
     throw new Error(`${child} is not a valid child for <FengmapBase />`)
   }
