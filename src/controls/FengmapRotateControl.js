@@ -125,7 +125,6 @@ class FengmapRotateControl extends FengmapBaseControl {
 
   _getNextRotateAngle = rotateAngle => {
     const { angle } = this.props
-    console.log('angle', angle)
     let next = rotateAngle + angle
     if (next <= 360) {
       return next
