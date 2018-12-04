@@ -5,25 +5,23 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "antd": "^3.10.7",
+    "antd": "^3.11.0",
     "core-js": "^2.5.7",
-    "cpx": "^1.5.0",
-    "fengmap": "^2.1.2",
+    "fengmap": "^2.2.0",
     "prop-types": "^15.6.2",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "react-fengmap": "file:..",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
-    "react-syntax-highlighter": "^10.0.1"
+    "react-syntax-highlighter": "^10.1.1"
   },
   "scripts": {
     "start": "react-app-rewired start",
-    "build": "react-app-rewired build",
-    "postinstall": "cpx ./libs/fengmap.min.js ./node_modules/fengmap/build --clean"
+    "build": "react-app-rewired build"
   },
   "devDependencies": {
-    "ajv": "^6.5.5",
+    "ajv": "^6.6.1",
     "babel-plugin-import": "^1.11.0",
     "react-app-rewired": "^1.6.2",
     "react-scripts": "^1.1.5"

@@ -1,6 +1,8 @@
 import FengmapBaseControl from '../bases/FengmapBaseControl'
 import PropTypes from 'prop-types'
 
+import { getFloors } from '../helpers/map'
+
 class FengmapFloorControl extends FengmapBaseControl {
   static propTypes = {
     ctrlOptions: PropTypes.shape({
@@ -28,12 +30,7 @@ class FengmapFloorControl extends FengmapBaseControl {
         return
       }
 
-      const availableFloors = map.listGroups.map(g => {
-        if (g.gname.toLowerCase().indexOf('f') > -1) {
-          return +g.gname.match(/\d+/)[0]
-        }
-        return +g.gname.match(/\d+/)[0] * -1
-      })
+      const availableFloors = getFloors(map)
 
       onFloorChange({
         floorLevel: availableFloors ? availableFloors[map.focusGroupID - 1] : undefined,

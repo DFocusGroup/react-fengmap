@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 import { default as SyntaxHighlighter } from 'react-syntax-highlighter/dist/esm/prism'
-import { darcula } from 'react-syntax-highlighter/dist/styles/prism'
+import { darcula } from 'react-syntax-highlighter/styles/prism'
 
 import fengmapSDK from 'fengmap'
 import { FengmapBase, FengmapRotateControl } from 'react-fengmap'
