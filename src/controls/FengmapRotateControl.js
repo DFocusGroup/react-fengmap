@@ -5,8 +5,8 @@ import PropTypes from 'prop-types'
 import rotateIcon from '../assets/icon-rotate-7.jpg'
 
 const INLINE_STYLE = {
-  width: '45px',
-  height: '45px',
+  width: '42px',
+  height: '42px',
   zIndex: '10',
   cursor: 'pointer',
   backgroundColor: '#fff',
@@ -15,13 +15,13 @@ const INLINE_STYLE = {
 }
 
 const INNER_STYLE = {
-  width: '35px',
-  height: '35px',
+  width: '20px',
+  height: '20px',
   position: 'absolute',
   top: '50%',
-  marginTop: '-17.5px',
+  marginTop: '-10px',
   left: '50%',
-  marginLeft: '-18.5px'
+  marginLeft: '-10px'
 }
 
 class FengmapRotateControl extends FengmapBaseControl {
@@ -65,7 +65,7 @@ class FengmapRotateControl extends FengmapBaseControl {
   _getFinalStyle = (props, POSITIONS) => {
     const { ctrlOptions } = props
     if (!ctrlOptions) {
-      return Object.assign({}, INLINE_STYLE, { position: 'absolute', bottom: '15px', right: '15px' })
+      return Object.assign({}, INLINE_STYLE, { position: 'absolute', bottom: '60px', right: '10px' })
     }
 
     if (POSITIONS.indexOf(ctrlOptions.position) < 0) {
@@ -76,20 +76,20 @@ class FengmapRotateControl extends FengmapBaseControl {
           left: `${ctrlOptions.offset.x}px`
         })
       }
-      return Object.assign({}, INLINE_STYLE, { position: 'absolute', bottom: '15px', right: '15px' })
+      return Object.assign({}, INLINE_STYLE, { position: 'absolute', bottom: '60px', right: '10px' })
     }
 
     if (ctrlOptions.position === POSITIONS[0]) {
-      return Object.assign({}, INLINE_STYLE, { position: 'absolute', bottom: '15px', left: '15px' })
+      return Object.assign({}, INLINE_STYLE, { position: 'absolute', bottom: '60px', left: '15px' })
     }
     if (ctrlOptions.position === POSITIONS[1]) {
       return Object.assign({}, INLINE_STYLE, { position: 'absolute', top: '15px', left: '15px' })
     }
     if (ctrlOptions.position === POSITIONS[2]) {
-      return Object.assign({}, INLINE_STYLE, { position: 'absolute', bottom: '15px', right: '15px' })
+      return Object.assign({}, INLINE_STYLE, { position: 'absolute', bottom: '60px', right: '10px' })
     }
     if (ctrlOptions.position === POSITIONS[3]) {
-      return Object.assign({}, INLINE_STYLE, { position: 'absolute', top: '15px', right: '15px' })
+      return Object.assign({}, INLINE_STYLE, { position: 'absolute', top: '15px', right: '10px' })
     }
   }
 
