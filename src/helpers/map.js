@@ -8,6 +8,9 @@ export function getFloors(map) {
 }
 
 export function setFloorByGroupId(map) {
+  if (map.focusGroupID === -1) {
+    return
+  }
   const floors = getFloors(map)
 
   map.focusFloor = floors[map.groupIDs.indexOf(map.focusGroupID)]
