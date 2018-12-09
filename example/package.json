@@ -6,7 +6,7 @@
   "private": true,
   "dependencies": {
     "antd": "^3.11.0",
-    "core-js": "^2.5.7",
+    "core-js": "^2.6.0",
     "fengmap": "^2.2.0",
     "prop-types": "^15.6.2",
     "react": "^16.6.3",
@@ -14,7 +14,7 @@
     "react-fengmap": "file:..",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
-    "react-syntax-highlighter": "^10.1.1"
+    "react-syntax-highlighter": "^10.1.2"
   },
   "scripts": {
     "start": "react-app-rewired start",

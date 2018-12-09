@@ -138,7 +138,7 @@ class FengmapRotateControl extends FengmapBaseControl {
       return null
     }
     return (
-      <div style={style} ref={this.rotateControl}>
+      <div className="fm-control-rotate-btn" style={style} ref={this.rotateControl}>
         <img src={rotateIcon} style={INNER_STYLE} alt="" />
       </div>
     )
