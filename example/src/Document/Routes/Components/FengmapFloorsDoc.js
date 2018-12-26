@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Radio } from 'antd'
 import PropTypes from 'prop-types'
 
-import { default as SyntaxHighlighter } from 'react-syntax-highlighter'
+import { default as SyntaxHighlighter } from 'react-syntax-highlighter/dist/esm/prism'
 import { darcula } from 'react-syntax-highlighter/dist/styles/prism'
 
 import fengmapSDK from 'fengmap'
@@ -44,7 +44,7 @@ class FengmapFloorsDoc extends Component {
     return (
       <React.Fragment>
         <SyntaxHighlighter language="jsx" style={darcula}>
-          {`<FengmapFloors {...支持所有FengmapBase的props} floors={Floors} onFloorChange={onFloorChange}/>`}
+          {`<FengmapFloors {...支持所有FengmapBase的props} value={Value} onFloorChange={onFloorChange} />`}
         </SyntaxHighlighter>
 
         <br />
@@ -52,13 +52,9 @@ class FengmapFloorsDoc extends Component {
         <PropsDoc
           data={[
             {
-              prop: 'floors',
-              type: 'Object',
-              description: (
-                <React.Fragment>
-                  {`{ availableValues: Array<Number>, value: Number }`}。 可用楼层数组，和选中的楼层
-                </React.Fragment>
-              )
+              prop: 'value',
+              type: 'Number',
+              description: '指定要聚焦的楼层，自然数'
             },
             {
               prop: 'onFloorChange',
@@ -95,10 +91,7 @@ class FengmapFloorsDoc extends Component {
               defaultMapScaleLevel: 20,
               defaultTiltAngle: 45
             }}
-            floors={{
-              availableValues: [1, 2, 3, 4, 5, 6],
-              value: this.state.selectedFloor
-            }}
+            value={this.state.selectedFloor}
             style={{
               width: `${contentWidth}px`,
               height: '550px'
@@ -123,10 +116,7 @@ export default function Example(props) {
         defaultMapScaleLevel: 20,
         defaultTiltAngle: 45
       }}
-      floors={{
-        availableValues: [1, 2, 3, 4, 5, 6],
-        value: props.selectedFloor
-      }}
+      value={this.state.selectedFloor}
       style={{
         width: '100%',
         height: '550px'

@@ -7,7 +7,14 @@ export function getFloors(map) {
   })
 }
 
-export function setFloorByGroupId(map) {
+export function setFloorsToMapInstance(map) {
+  if (!map.listGroups || !map.listGroups.length) {
+    return
+  }
+  map.listFloors = getFloors(map)
+}
+
+export function setFloorsByGroupId(map) {
   if (map.focusGroupID === -1) {
     return
   }

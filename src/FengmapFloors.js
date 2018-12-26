@@ -8,10 +8,7 @@ class FengmapFloors extends Component {
     reference: PropTypes.any,
     mapOptions: PropTypes.object,
     events: PropTypes.object,
-    floors: PropTypes.shape({
-      availableValues: PropTypes.arrayOf(PropTypes.number),
-      value: PropTypes.number
-    }),
+    value: PropTypes.number,
     onFloorChange: PropTypes.func
   }
 
@@ -22,10 +19,7 @@ class FengmapFloors extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (!this.props.floors) {
-      return
-    }
-    if (prevProps.floors && this.props.floors.value === prevProps.floors.value) {
+    if (this.props.value === prevProps.value) {
       return
     }
     if (!this.mapInstance) {
@@ -36,18 +30,19 @@ class FengmapFloors extends Component {
   }
 
   _changeFloor = () => {
-    const { floors, onFloorChange } = this.props
-    if (isNil(floors) || !this.mapInstance) {
+    const { onFloorChange, value } = this.props
+    if (!this.mapInstance || isNil(this.mapInstance.listFloors)) {
       return
     }
-    const index = floors.availableValues.findIndex(f => f === floors.value)
+    const { listFloors } = this.mapInstance
+    const index = listFloors.findIndex(f => f === value)
     const groupId = index + 1
     this.mapInstance.visibleGroupIDs = [groupId]
     this.mapInstance.focusGroupID = groupId
 
     if (onFloorChange) {
       onFloorChange({
-        floorLevel: floors.value,
+        floorLevel: value,
         groupId
       })
     }

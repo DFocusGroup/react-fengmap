@@ -90,10 +90,7 @@ class FengmapZoomControlDoc extends Component {
             gestureEnableController={{
               enableMapPinch: false
             }}
-            floors={{
-              availableValues: [1, 2, 3, 4, 5, 6],
-              value: 2
-            }}
+            value={2}
             style={{
               width: `${contentWidth}px`,
               height: '550px'
@@ -128,10 +125,7 @@ export default function Example(props) {
       gestureEnableController={{
         enableMapPinch: false // 禁用鼠标滚轮或者手势pinch缩放地图
       }}
-      floors={{
-        availableValues: [1, 2, 3, 4, 5, 6],
-        value: 2
-      }}
+      value={2}
       style={{
         width: '100%',
         height: '550px'
