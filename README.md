@@ -66,10 +66,7 @@ class Example extends Component {
           defaultMapScaleLevel: 20,
           defaultTiltAngle: 45
         }}
-        floors={{
-          availableValues: [1, 2, 3, 4, 5, 6],
-          value: selectedFloor
-        }}
+        value={selectedFloor}
         style={{
           width: '800px',
           height: '550px'
