@@ -9,6 +9,7 @@ const EVENTS = [
   'focusGroupIDChanged',
   'loadComplete',
   'mapClickNode',
+  'mapHoverNode',
   'mapScaleLevelChanged',
   'scaleLevelChanged',
   'visibleGroupIDsChanged'
@@ -88,6 +89,11 @@ class FengmapBase extends Component {
         }
         if (events && events[e]) {
           events[e](event, this.mapInstance)
+        }
+        if (events.mapHoverNode) {
+          this.mapInstance.gestureEnableController.enableMapHover = true
+        } else {
+          this.mapInstance.gestureEnableController.enableMapHover = false
         }
       })
     })

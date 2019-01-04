@@ -82,6 +82,7 @@ class FengmapBaseDoc extends Component {
                     'focusGroupIDChanged',
                     'loadComplete',
                     'mapClickNode',
+                    'mapHoverNode',
                     'mapScaleLevelChanged',
                     'scaleLevelChanged',
                     'visibleGroupIDsChanged'
