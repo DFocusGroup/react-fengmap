@@ -104,14 +104,16 @@ class FengmapBaseDoc extends Component {
               description: (
                 <React.Fragment>
                   键值组合，key的可用值： [
-                  {['enableMapPan', 'enableMapPinch', 'enableMapRotate', 'enableMapIncline'].map((e, i) => {
-                    return (
-                      <span key={i}>
-                        <code className="codeRef">{e}</code>
-                        {i !== 3 ? ',' : ''}
-                      </span>
-                    )
-                  })}
+                  {['enableMapHover', 'enableMapPan', 'enableMapPinch', 'enableMapRotate', 'enableMapIncline'].map(
+                    (e, i) => {
+                      return (
+                        <span key={i}>
+                          <code className="codeRef">{e}</code>
+                          {i !== 3 ? ',' : ''}
+                        </span>
+                      )
+                    }
+                  )}
                   ]，
                   <code className="codeRef">value</code>
                   是各状态的
