@@ -39,10 +39,12 @@ class FengmapBase extends Component {
     loadingTxt: PropTypes.string,
     supportTxt: PropTypes.string,
     gestureEnableController: PropTypes.shape({
+      enableMapHover: PropTypes.bool,
       enableMapPan: PropTypes.bool,
       enableMapPinch: PropTypes.bool,
       enableMapRotate: PropTypes.bool,
-      enableMapIncline: PropTypes.bool
+      enableMapIncline: PropTypes.bool,
+      enableMapSingleTap: PropTypes.bool
     }),
     children: PropTypes.any
   }
@@ -90,7 +92,7 @@ class FengmapBase extends Component {
         if (events && events[e]) {
           events[e](event, this.mapInstance)
         }
-        if (events.mapHoverNode) {
+        if (events && events.mapHoverNode) {
           this.mapInstance.gestureEnableController.enableMapHover = true
         } else {
           this.mapInstance.gestureEnableController.enableMapHover = false

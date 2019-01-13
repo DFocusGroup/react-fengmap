@@ -1,11 +1,12 @@
 import babel from 'rollup-plugin-babel'
 import commonjs from 'rollup-plugin-commonjs'
-import external from 'rollup-plugin-peer-deps-external'
 import postcss from 'rollup-plugin-postcss'
 import resolve from 'rollup-plugin-node-resolve'
 import url from 'rollup-plugin-url'
 
 import pkg from './package.json'
+
+const externalIds = ['antd', 'prop-types', 'moment', 'react', 'react-dom']
 
 export default {
   input: 'src/index.js',
@@ -21,8 +22,10 @@ export default {
       sourcemap: true
     }
   ],
+  external: function(id, parent, isResolved) {
+    return !!(id && externalIds.some(e => id.startsWith(e)))
+  },
   plugins: [
-    external(),
     postcss({
       modules: true
     }),
