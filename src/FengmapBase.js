@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { isChildrenValid } from './helpers/validator'
 import { isArray } from './helpers/object'
 import { isOrderIE } from './helpers/browser'
-import { setFloorsByGroupId, setFloorsToMapInstance } from './helpers/map'
+import { initFloorsToMapInstance } from './helpers/map'
 
 const EVENTS = [
   'focusGroupIDChanged',
@@ -83,11 +83,7 @@ class FengmapBase extends Component {
           this.loadingTxt.current.style['zIndex'] = -10
           this._configGestureEnableController()
           this._initAllChildren(this.mapInstance)
-          setFloorsByGroupId(this.mapInstance)
-          setFloorsToMapInstance(this.mapInstance)
-        }
-        if (e === 'focusGroupIDChanged') {
-          setFloorsByGroupId(this.mapInstance)
+          initFloorsToMapInstance(this.mapInstance)
         }
         if (events && events[e]) {
           events[e](event, this.mapInstance)
