@@ -116,8 +116,8 @@ export default function Example(props) {
         key: 'e843c6307e42ec8de24d14a10e07ca20',
         //开发者申请应用名称
         appName: 'github演示应用',
-        mapServerURL: resolvePublicPath('/maps/10347'),
-        mapThemeURL: resolvePublicPath('/maps/theme'),
+        mapServerURL: '/maps/10347',
+        mapThemeURL: '/maps/theme',
         defaultMapScaleLevel: 20
       }}
       gestureEnableController={{
@@ -127,23 +127,14 @@ export default function Example(props) {
         width: '100%',
         height: '550px'
       }}
-      events={{
-        mapClickNode: e => {
-          this.setState({
-            markerPos: {
-              x: e.x,
-              y: e.y
-            }
-          })
-        }
-      }}
     >
       <FengmapImageMarker
         opts={{
-          ...(markerPos || {}),
+          x: props.x,
+          y: props.y,
           size: 50,
           height: 0,
-          url: resolvePublicPath('/assets/marker.png')
+          url: '/assets/marker.png'
         }}
       />
     </FengmapBase>
