@@ -9,3 +9,10 @@ export function isNumber(obj) {
 export function isArray(obj) {
   return Object.prototype.toString.call(obj) === '[object Array]'
 }
+
+export function grabNumbers(str) {
+  if (!str) {
+    return 0
+  }
+  return +str.match(/\d+/)[0]
+}

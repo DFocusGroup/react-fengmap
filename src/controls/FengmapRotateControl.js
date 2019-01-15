@@ -2,6 +2,9 @@ import React from 'react'
 import FengmapBaseControl from '../bases/FengmapBaseControl'
 import PropTypes from 'prop-types'
 
+import { grabNumbers } from '../helpers/object'
+import { mergeWithOffset } from '../helpers/map'
+
 import rotateIcon from '../assets/icon-rotate-7.jpg'
 
 const INLINE_STYLE = {
@@ -65,32 +68,28 @@ class FengmapRotateControl extends FengmapBaseControl {
   _getFinalStyle = (props, POSITIONS) => {
     const { ctrlOptions } = props
     if (!ctrlOptions) {
-      return Object.assign({}, INLINE_STYLE, { position: 'absolute', bottom: '60px', right: '10px' })
+      return mergeWithOffset(
+        {
+          position: POSITIONS[0]
+        },
+        POSITIONS,
+        INLINE_STYLE
+      )
     }
 
+    // no position specified, with LEFT_BOTTOM by default
     if (POSITIONS.indexOf(ctrlOptions.position) < 0) {
-      if (ctrlOptions.offset) {
-        return Object.assign({}, INLINE_STYLE, {
-          position: 'absolute',
-          top: `${ctrlOptions.offset.y}px`,
-          left: `${ctrlOptions.offset.x}px`
-        })
-      }
-      return Object.assign({}, INLINE_STYLE, { position: 'absolute', bottom: '60px', right: '10px' })
+      return mergeWithOffset(
+        {
+          ...ctrlOptions,
+          position: POSITIONS[0]
+        },
+        POSITIONS,
+        INLINE_STYLE
+      )
     }
 
-    if (ctrlOptions.position === POSITIONS[0]) {
-      return Object.assign({}, INLINE_STYLE, { position: 'absolute', bottom: '60px', left: '15px' })
-    }
-    if (ctrlOptions.position === POSITIONS[1]) {
-      return Object.assign({}, INLINE_STYLE, { position: 'absolute', top: '15px', left: '15px' })
-    }
-    if (ctrlOptions.position === POSITIONS[2]) {
-      return Object.assign({}, INLINE_STYLE, { position: 'absolute', bottom: '60px', right: '10px' })
-    }
-    if (ctrlOptions.position === POSITIONS[3]) {
-      return Object.assign({}, INLINE_STYLE, { position: 'absolute', top: '15px', right: '10px' })
-    }
+    return mergeWithOffset(ctrlOptions, POSITIONS, INLINE_STYLE)
   }
 
   load = (map, fengmapSDK, parent) => {

@@ -87,7 +87,7 @@ class FengmapRotateControlDoc extends Component {
             <FengmapRotateControl
               angle={15}
               ctrlOptions={{
-                position: fengmapSDK.controlPositon.RIGHT_BOTTOM
+                position: fengmapSDK.controlPositon.LEFT_BOTTOM
               }}
             />
           </FengmapBase>
