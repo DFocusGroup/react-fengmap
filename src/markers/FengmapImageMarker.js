@@ -17,11 +17,18 @@ class FengmapImageMarker extends FengmapBaseControl {
 
   load = (map, fengmapSDK, parent) => {
     const { opts } = this.props
+
+    this._createMarker(map, fengmapSDK, opts)
+  }
+
+  _createMarker = (map, fengmapSDK, opts) => {
     this.map = map
-    this.groupLayer = map.getFMGroup(map.focusGroupID)
-    this.layer = new fengmapSDK.FMImageMarkerLayer()
+    this.fengmapSDK = fengmapSDK
+    this.focusGroupID = this.map.focusGroupID
+    this.groupLayer = this.map.getFMGroup(this.map.focusGroupID)
+    this.layer = new this.fengmapSDK.FMImageMarkerLayer()
     this.groupLayer.addLayer(this.layer)
-    this.marker = new fengmapSDK.FMImageMarker({
+    this.marker = new this.fengmapSDK.FMImageMarker({
       ...opts,
       callback: () => {
         this.marker.alwaysShow()
@@ -38,12 +45,23 @@ class FengmapImageMarker extends FengmapBaseControl {
       return
     }
     const { opts } = this.props
-    this.marker.setPosition(pick(opts, ['x', 'y']), this.map.focusGroupID, opts.height)
+    if (this.focusGroupID === this.map.focusGroupID) {
+      this.marker.setPosition(pick(opts, ['x', 'y']), this.map.focusGroupID, opts.height)
+      return
+    }
+
+    this._destroy()
+
+    this._createMarker(this.map, this.fengmapSDK, opts)
+  }
+
+  _destroy = () => {
+    this.layer.removeAll()
+    this.groupLayer.removeLayer(this.layer)
   }
 
   componentWillUnmount() {
-    this.layer.removeAll()
-    this.groupLayer.removeLayer(this.layer)
+    this._destroy()
   }
 
   render() {
