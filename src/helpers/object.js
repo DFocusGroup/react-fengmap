@@ -16,3 +16,13 @@ export function grabNumbers(str) {
   }
   return +str.match(/\d+/)[0]
 }
+
+export function pick(obj, keys) {
+  const newObj = {}
+
+  keys.forEach(key => {
+    newObj[key] = obj[key]
+  })
+
+  return newObj
+}

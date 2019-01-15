@@ -34,8 +34,16 @@ export const controlRoutes = [
   }
 ]
 
+export const markerRoutes = [
+  {
+    url: '/api/fengmap-imagemarker',
+    displayTitle: '<FengmapImageMarker />',
+    description: 'FMImageMarker 自定义图片标注组件，为自定义图层'
+  }
+]
+
 export function getRouteDefinition(pathname) {
-  const found = [...componentRoutes, ...controlRoutes].find(r => r.url === pathname)
+  const found = [...componentRoutes, ...controlRoutes, ...markerRoutes].find(r => r.url === pathname)
 
   if (!found) {
     return null

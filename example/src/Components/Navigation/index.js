@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import Link from 'umi/link'
 import { connect } from 'dva'
 import { Layout, Drawer, Menu } from 'antd'
-import { componentRoutes, controlRoutes } from '../../routesConfig'
+import { componentRoutes, controlRoutes, markerRoutes } from '../../routesConfig'
 
 import styles from './index.css'
 import logoURL from '../../assets/logo.png'
@@ -113,6 +113,22 @@ class Navigation extends Component {
             )
           })}
           {controlRoutes.map(c => {
+            return (
+              <div key={c.url} className={styles.smallScreenMenuItem}>
+                <Link
+                  to={c.url}
+                  onClick={() =>
+                    this.setState({
+                      openSmallScreenMenu: false
+                    })
+                  }
+                >
+                  {c.displayTitle}
+                </Link>
+              </div>
+            )
+          })}
+          {markerRoutes.map(c => {
             return (
               <div key={c.url} className={styles.smallScreenMenuItem}>
                 <Link

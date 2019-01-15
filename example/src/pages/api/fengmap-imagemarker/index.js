@@ -1,33 +1,36 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import fengmapSDK from 'fengmap'
-import { FengmapBase, Fengmap3DControl } from 'react-fengmap'
+import { FengmapBase, FengmapImageMarker } from 'react-fengmap'
 
 import Highlight from '../../../Components/Highlight'
 import withAPIDoc from '../../../Components/APIDoc'
 import PropsDoc from '../../../Components/PropsDoc'
 import { resolvePublicPath } from '../../../helpers/env'
 
-class Fengmap3DControlDoc extends Component {
+class FengmapImageMarkerDoc extends Component {
   static propTypes = {
     screenWidth: PropTypes.number
   }
 
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      markerPos: null
+    }
+  }
+
   render() {
+    const { markerPos } = this.state
     const { screenWidth } = this.props
     const contentWidth = screenWidth > 1000 ? screenWidth - 280 - 24 * 4 - 40 : screenWidth
     return (
       <React.Fragment>
         <Highlight language="jsx">
-          {`// 基础地图
-<FengmapBase mapId={MapId} style={Style} fengmapSDK={SDK} mapOptions={MapOptions} >
-  <Fengmap3DControl ctrlOptions={CtrlOptions} />
+          {`<FengmapBase mapId={MapId} style={Style} fengmapSDK={SDK} mapOptions={MapOptions} >
+  <FengmapImageMarker opts={Opts} />
 </FengmapBase>
-
-// 带楼层控制的地图
-<FengmapFloors mapId={MapId} style={Style} fengmapSDK={SDK} mapOptions={MapOptions} >
-  <Fengmap3DControl ctrlOptions={CtrlOptions} />
-</FengmapFloors>
 `}
         </Highlight>
 
@@ -36,17 +39,17 @@ class Fengmap3DControlDoc extends Component {
         <PropsDoc
           data={[
             {
-              prop: 'ctrlOptions',
+              prop: 'opts',
               type: 'Object',
               description: (
                 <React.Fragment>
                   请参考
                   <a
-                    href="https://www.fengmap.com/docs/js/v2.2.0_beta/classes/fengmap.toolControl.html"
+                    href="https://www.fengmap.com/docs/js/v2.2.0_beta/classes/fengmap.FMImageMarker.html"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    ctrlOpts
+                    opts
                   </a>
                 </React.Fragment>
               )
@@ -77,12 +80,23 @@ class Fengmap3DControlDoc extends Component {
               width: `${contentWidth}px`,
               height: '550px'
             }}
+            events={{
+              mapClickNode: e => {
+                this.setState({
+                  markerPos: {
+                    x: e.x,
+                    y: e.y
+                  }
+                })
+              }
+            }}
           >
-            <Fengmap3DControl
-              ctrlOptions={{
-                groupsButtonNeeded: false,
-                position: fengmapSDK.controlPositon.RIGHT_TOP,
-                imgURL: resolvePublicPath('/assets/')
+            <FengmapImageMarker
+              opts={{
+                ...(markerPos || {}),
+                size: 50,
+                height: 10,
+                url: resolvePublicPath('/assets/marker.png')
               }}
             />
           </FengmapBase>
@@ -99,28 +113,40 @@ export default function Example(props) {
       fengmapSDK={fengmapSDK}
       mapId="10347"
       mapOptions={{
+        key: 'e843c6307e42ec8de24d14a10e07ca20',
         //开发者申请应用名称
-        appName: '应用名',
-        key: 'appkey',
-        mapServerURL: '/maps/10347',
-        defaultMapScaleLevel: 20,
-        defaultTiltAngle: 45
+        appName: 'github演示应用',
+        mapServerURL: resolvePublicPath('/maps/10347'),
+        mapThemeURL: resolvePublicPath('/maps/theme'),
+        defaultMapScaleLevel: 20
       }}
       gestureEnableController={{
-        enableMapPinch: false // 禁用鼠标滚轮或者手势pinch缩放地图
+        enableMapPinch: false
       }}
       style={{
         width: '100%',
         height: '550px'
       }}
+      events={{
+        mapClickNode: e => {
+          this.setState({
+            markerPos: {
+              x: e.x,
+              y: e.y
+            }
+          })
+        }
+      }}
     >
-      <Fengmap3DControl
-        ctrlOptions={{
-          position: fengmapSDK.controlPositon.RIGHT_TOP,
-          imgURL: '/assets/'
+      <FengmapImageMarker
+        opts={{
+          ...(markerPos || {}),
+          size: 50,
+          height: 0,
+          url: resolvePublicPath('/assets/marker.png')
         }}
       />
-    </FengmapFloors>
+    </FengmapBase>
   )
 }
 `}
@@ -131,4 +157,4 @@ export default function Example(props) {
   }
 }
 
-export default withAPIDoc(Fengmap3DControlDoc)
+export default withAPIDoc(FengmapImageMarkerDoc)
