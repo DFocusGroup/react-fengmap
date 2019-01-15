@@ -1,4 +1,5 @@
 import * as React from 'react'
+import * as fengmap from 'fengmap'
 import { Fengmap } from '../FengmapBase'
 
 export interface FengmapImageMarkerProps {
@@ -8,7 +9,7 @@ export interface FengmapImageMarkerProps {
     size: number
     height: number
     url: string
-    callback: Function
+    callback: (FMImageMarker: any) => void
   }
 }
 
