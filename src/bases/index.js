@@ -1,4 +1,4 @@
 import FengmapBaseControl from './FengmapBaseControl'
-import FengmapBaseMarker from './FengmapBaseMarker'
+import FengmapBaseOverlay from './FengmapBaseOverlay'
 
-export const VALID_SUB_COMPONENTS = [FengmapBaseControl, FengmapBaseMarker]
+export const VALID_SUB_COMPONENTS = [FengmapBaseControl, FengmapBaseOverlay]

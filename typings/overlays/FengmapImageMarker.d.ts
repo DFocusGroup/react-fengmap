@@ -5,7 +5,7 @@ import { Fengmap } from '../FengmapBase'
 export interface FengmapImageMarkerProps {
   opts: {
     x: number
-    y: PropTypesnumber
+    y: number
     size: number
     height: number
     url: string

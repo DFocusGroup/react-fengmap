@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import Link from 'umi/link'
 import { connect } from 'dva'
 import { Layout, Drawer, Menu } from 'antd'
-import { componentRoutes, controlRoutes, markerRoutes } from '../../routesConfig'
+import { componentRoutes, controlRoutes, overlayRoutes } from '../../routesConfig'
 
 import styles from './index.css'
 import logoURL from '../../assets/logo.png'
@@ -128,7 +128,7 @@ class Navigation extends Component {
               </div>
             )
           })}
-          {markerRoutes.map(c => {
+          {overlayRoutes.map(c => {
             return (
               <div key={c.url} className={styles.smallScreenMenuItem}>
                 <Link

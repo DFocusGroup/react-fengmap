@@ -34,16 +34,21 @@ export const controlRoutes = [
   }
 ]
 
-export const markerRoutes = [
+export const overlayRoutes = [
   {
     url: '/api/fengmap-imagemarker',
     displayTitle: '<FengmapImageMarker />',
     description: 'FMImageMarker 自定义图片标注组件，为自定义图层'
+  },
+  {
+    url: '/api/fengmap-navigation',
+    displayTitle: '<FengmapNavigation />',
+    description: 'FengmapNavigation 导航组件,封装了自动设置起始点标注，路径分析，模拟导航，导航动画的功能'
   }
 ]
 
 export function getRouteDefinition(pathname) {
-  const found = [...componentRoutes, ...controlRoutes, ...markerRoutes].find(r => r.url === pathname)
+  const found = [...componentRoutes, ...controlRoutes, ...overlayRoutes].find(r => r.url === pathname)
 
   if (!found) {
     return null

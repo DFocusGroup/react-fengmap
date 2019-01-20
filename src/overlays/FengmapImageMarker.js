@@ -1,9 +1,9 @@
-import FengmapBaseControl from '../bases/FengmapBaseControl'
+import FengmapBaseOverlay from '../bases/FengmapBaseOverlay'
 import PropTypes from 'prop-types'
 
 import { pick } from '../helpers/object'
 
-class FengmapImageMarker extends FengmapBaseControl {
+class FengmapImageMarker extends FengmapBaseOverlay {
   static propTypes = {
     opts: PropTypes.shape({
       x: PropTypes.number,

@@ -4,7 +4,7 @@ import Link from 'umi/link'
 import { connect } from 'dva'
 import { Layout, Menu, Icon } from 'antd'
 
-import { componentRoutes, controlRoutes, markerRoutes, getRouteDefinition } from '../../routesConfig'
+import { componentRoutes, controlRoutes, overlayRoutes, getRouteDefinition } from '../../routesConfig'
 
 class Sidebar extends React.Component {
   static propTypes = {
@@ -33,10 +33,10 @@ class Sidebar extends React.Component {
         openKey: 'Controls'
       }
     }
-    if (markerRoutes.includes(found)) {
+    if (overlayRoutes.includes(found)) {
       return {
         selectKey: found.url,
-        openKey: 'Markers'
+        openKey: 'Overlays'
       }
     }
   }
@@ -90,15 +90,15 @@ class Sidebar extends React.Component {
             })}
           </Menu.SubMenu>
           <Menu.SubMenu
-            key="Markers"
+            key="Overlays"
             title={
               <span>
                 <Icon type="environment" />
-                Markers
+                Overlays
               </span>
             }
           >
-            {markerRoutes.map(c => {
+            {overlayRoutes.map(c => {
               return (
                 <Menu.Item key={c.url}>
                   <Link to={c.url}>{c.displayTitle}</Link>
