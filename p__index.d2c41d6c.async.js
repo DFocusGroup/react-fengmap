@@ -1,1 +1,0 @@
-(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([[10],{RXBc:function(e,n,t){"use strict";t.r(n);var a=t("q1tI"),o=t.n(a),c=t("dPBl");n["default"]=(()=>o.a.createElement(c["a"],{to:"/home"}))}}]);
