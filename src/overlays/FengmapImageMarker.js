@@ -56,8 +56,12 @@ class FengmapImageMarker extends FengmapBaseOverlay {
   }
 
   _destroy = () => {
-    this.layer.removeAll()
-    this.groupLayer.removeLayer(this.layer)
+    if (this.layer) {
+      this.layer.removeAll()
+    }
+    if (this.groupLayer) {
+      this.groupLayer.removeLayer(this.layer)
+    }
   }
 
   componentWillUnmount() {

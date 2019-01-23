@@ -74,7 +74,9 @@ class FengmapNavigation extends FengmapBaseOverlay {
   }
 
   _destroy = () => {
-    this.navigation.clearAll()
+    if (this.navigation) {
+      this.navigation.clearAll()
+    }
   }
 
   componentWillUnmount() {
