@@ -76,7 +76,6 @@ class FengmapBase extends Component {
       this.mapContainer.current.innerHTML = ''
     }
     this.mapInstance = new fengmapSDK.FMMap(Object.assign({}, mapOptions, { container: this.mapContainer.current }))
-
     EVENTS.forEach(e => {
       this.mapInstance.on(e, event => {
         if (e === 'loadComplete') {
@@ -140,6 +139,10 @@ class FengmapBase extends Component {
     EVENTS.forEach(e => {
       this.mapInstance.off(e)
     })
+    if (typeof this.mapInstance.dispose === 'function') {
+      this.mapInstance.dispose()
+    }
+    this.mapInstance = null
   }
 
   render() {
