@@ -84,8 +84,12 @@ class FengmapBase extends Component {
           this._initAllChildren(this.mapInstance)
           initFloorsToMapInstance(this.mapInstance)
         }
+
         if (events && events[e]) {
           events[e](event, this.mapInstance)
+        }
+        if (!this.mapInstance) {
+          return
         }
         if (events && events.mapHoverNode) {
           this.mapInstance.gestureEnableController.enableMapHover = true
@@ -140,9 +144,12 @@ class FengmapBase extends Component {
       this.mapInstance.off(e)
     })
     if (typeof this.mapInstance.dispose === 'function') {
-      this.mapInstance.dispose()
+      try {
+        this.mapInstance.dispose()
+      } catch (err) {
+        console.log(err)
+      }
     }
-    this.mapInstance = null
   }
 
   render() {
