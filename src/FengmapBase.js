@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { isChildrenValid } from './helpers/validator'
-import { isArray } from './helpers/object'
+import { isArray, isFunction } from './helpers/object'
 import { isOrderIE } from './helpers/browser'
 import { initFloorsToMapInstance } from './helpers/map'
 
@@ -133,23 +133,29 @@ class FengmapBase extends Component {
     if (prevProps.mapId === this.props.mapId) {
       return
     }
+
+    this._destroy()
     this._loadMap(this.props.mapId)
   }
 
-  componentWillUnmount() {
+  _destroy = () => {
     if (!this.mapInstance) {
       return
     }
     EVENTS.forEach(e => {
       this.mapInstance.off(e)
     })
-    if (typeof this.mapInstance.dispose === 'function') {
+    if (isFunction(this.mapInstance.dispose)) {
       try {
         this.mapInstance.dispose()
       } catch (err) {
-        console.log(err)
+        console.warn(err)
       }
     }
+  }
+
+  componentWillUnmount() {
+    this._destroy()
   }
 
   render() {

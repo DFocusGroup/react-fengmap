@@ -10,6 +10,10 @@ export function isArray(obj) {
   return Object.prototype.toString.call(obj) === '[object Array]'
 }
 
+export function isFunction(obj) {
+  return Object.prototype.toString.call(obj) === '[object Function]'
+}
+
 export function grabNumbers(str) {
   if (!str) {
     return 0
