@@ -34,6 +34,8 @@ export interface FengmapNavigationProps {
     }
     noMarker: boolean
   }
+  events: FengmapNavigationEvents
+  onDrawComplete: (map: Fengmap) => void
 }
 
 export interface FengmapNavigationState {}
@@ -41,4 +43,14 @@ export interface FengmapNavigationState {}
 export default class FengmapNavigation extends React.Component<FengmapNavigationProps, FengmapNavigationState> {
   load(map: Fengmap, fengmapSDK: any, parent: any): void
   render(): JSX.Element | null
+}
+
+interface EventCallback {
+  (e: any, map: Fengmap): boolean
+}
+
+export interface FengmapNavigationEvents {
+  complete: EventCallback
+  crossGroup: EventCallback
+  walking: EventCallback
 }

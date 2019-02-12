@@ -1,6 +1,8 @@
 import FengmapBaseOverlay from '../bases/FengmapBaseOverlay'
 import PropTypes from 'prop-types'
 
+const EVENTS = ['complete', 'crossGroup', 'walking']
+
 class FengmapNavigation extends FengmapBaseOverlay {
   static propTypes = {
     naviOptions: PropTypes.shape({
@@ -33,7 +35,9 @@ class FengmapNavigation extends FengmapBaseOverlay {
         callback: PropTypes.func
       }),
       noMarker: PropTypes.bool
-    })
+    }),
+    events: PropTypes.object,
+    onDrawComplete: PropTypes.func
   }
 
   load = (map, fengmapSDK, parent) => {
@@ -49,23 +53,33 @@ class FengmapNavigation extends FengmapBaseOverlay {
       ...(naviOptions || {}),
       map: map
     })
+    const { events } = this.props
+    EVENTS.forEach(e => {
+      this.navigation.on(e, event => {
+        if (events && events[e]) {
+          events[e](event, this.navigation)
+        }
+      })
+    })
 
     this._setRoute({}, this.props)
   }
 
   _setRoute = (prev, props) => {
-    if (props.start !== prev.start || props.end !== prev.end) {
+    const { start, end, onDrawComplete } = props
+    if (start !== prev.start || end !== prev.end) {
       this.navigation.clearAll()
     }
-    if (props.start && props.start.options) {
-      this.navigation.setStartPoint(props.start.options, props.start.noMarker)
+    if (start && start.options) {
+      this.navigation.setStartPoint(start.options, start.noMarker)
     }
-    if (props.end && props.end.options) {
-      this.navigation.setEndPoint(props.end.options, props.end.noMarker)
+    if (end && end.options) {
+      this.navigation.setEndPoint(end.options, end.noMarker)
     }
 
-    if (props.start && props.end) {
+    if (start && end) {
       this.navigation.drawNaviLine()
+      onDrawComplete && onDrawComplete(this.navigation)
     }
   }
 
