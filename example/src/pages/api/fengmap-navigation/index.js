@@ -6,7 +6,12 @@ import { FengmapBase, FengmapNavigation } from 'react-fengmap'
 import Highlight from '../../../Components/Highlight'
 import withAPIDoc from '../../../Components/APIDoc'
 import PropsDoc from '../../../Components/PropsDoc'
+import CodeSnippet from '../../../Components/CodeSnippet'
 import { resolvePublicPath } from '../../../helpers/env'
+
+const startPointUrl =
+  'https://www.fengmap.com/docs/js/v2.2.0_beta/classes/fengmap.FMNavigation.html#method_setStartPoint'
+const endPointUrl = 'https://www.fengmap.com/docs/js/v2.2.0_beta/classes/fengmap.FMNavigation.html#method_setEndPoint'
 
 class FengmapNavigationDoc extends Component {
   static propTypes = {
@@ -62,11 +67,7 @@ class FengmapNavigationDoc extends Component {
               description: (
                 <React.Fragment>
                   请参考
-                  <a
-                    href="https://www.fengmap.com/docs/js/v2.2.0_beta/classes/fengmap.FMNavigation.html#method_setStartPoint"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
+                  <a href={startPointUrl} target="_blank" rel="noopener noreferrer">
                     startPoint
                   </a>
                 </React.Fragment>
@@ -78,15 +79,43 @@ class FengmapNavigationDoc extends Component {
               description: (
                 <React.Fragment>
                   请参考
-                  <a
-                    href="https://www.fengmap.com/docs/js/v2.2.0_beta/classes/fengmap.FMNavigation.html#method_setEndPoint"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
+                  <a href={endPointUrl} target="_blank" rel="noopener noreferrer">
                     endPoint
                   </a>
                 </React.Fragment>
               )
+            },
+            {
+              prop: 'events',
+              type: 'Object',
+              description: (
+                <React.Fragment>
+                  请参考
+                  <a
+                    href="https://www.fengmap.com/docs/js/v2.2.0_beta/classes/fengmap.FMNavigation.html"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    events
+                  </a>
+                  {/* , 键值组合，key的可用值： [complete, crossGroup, walking]，value是事件响应函数 */}
+                  键值组合，key的可用值： [
+                  {['complete', 'crossGroup', 'walking'].map((e, i) => {
+                    return (
+                      <span key={i}>
+                        <CodeSnippet>{e}</CodeSnippet>
+                        {i !== 2 ? ',' : ''}
+                      </span>
+                    )
+                  })}
+                  ], value是事件响应函数
+                </React.Fragment>
+              )
+            },
+            {
+              prop: 'onDrawComplete',
+              type: 'Function',
+              description: '绘制路径完成后的回调函数'
             }
           ]}
         />
@@ -165,6 +194,14 @@ class FengmapNavigationDoc extends Component {
               }}
               start={startPoint}
               end={endPoint}
+              events={{
+                complete(e, navi) {
+                  console.log('路径加载完毕', navi)
+                }
+              }}
+              onDrawComplete={navi => {
+                console.log('draw completed', navi)
+              }}
             />
           </FengmapBase>
 
