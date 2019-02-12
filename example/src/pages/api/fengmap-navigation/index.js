@@ -36,7 +36,13 @@ class FengmapNavigationDoc extends Component {
       <React.Fragment>
         <Highlight language="jsx">
           {`<FengmapBase mapId={MapId} style={Style} fengmapSDK={SDK} mapOptions={MapOptions} >
-  <FengmapNavigation naviOptions={NaviOptions} start={Start} end={End} />
+  <FengmapNavigation
+    naviOptions={NaviOptions}
+    start={Start}
+    end={End}
+    events={Events}
+    onDrawComplete={OnDrawComplete}
+  />
 </FengmapBase>
 `}
         </Highlight>
@@ -114,7 +120,7 @@ class FengmapNavigationDoc extends Component {
             },
             {
               prop: 'onDrawComplete',
-              type: 'Function',
+              type: '(nav: FMNavigation) => void',
               description: '绘制路径完成后的回调函数'
             }
           ]}
