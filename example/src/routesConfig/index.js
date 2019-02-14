@@ -31,6 +31,11 @@ export const controlRoutes = [
     url: '/api/fengmap-3dcontrol',
     displayTitle: '<Fengmap3DControl />',
     description: '地图楼层切换控件'
+  },
+  {
+    url: '/api/fengmap-compasscontrol',
+    displayTitle: '<FengmapCompassControl />',
+    description: '指北针控件'
   }
 ]
 
