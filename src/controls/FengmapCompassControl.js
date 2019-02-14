@@ -3,11 +3,11 @@ import PropTypes from 'prop-types'
 
 class FengmapCompassControl extends FengmapBaseControl {
   static propTypes = {
-    visible: PropTypes.bool,
+    visible: PropTypes.bool.isRequired,
     image: PropTypes.shape({
       bg: PropTypes.string,
       fg: PropTypes.string
-    }).isRequired,
+    }),
     onClick: PropTypes.func
   }
 
@@ -16,7 +16,15 @@ class FengmapCompassControl extends FengmapBaseControl {
     this.mapInstance = map
     map.showCompass = visible
 
+    this._initImage()
     this._initClick()
+  }
+
+  _initImage = () => {
+    const { image } = this.props
+    const img = image || {}
+    this.mapInstance.compass.setBgImage(img.bg)
+    this.mapInstance.compass.setFgImage(img.fg)
   }
 
   _initClick = () => {
@@ -36,6 +44,9 @@ class FengmapCompassControl extends FengmapBaseControl {
     }
     if (prev.onClick !== this.props.onClick) {
       this._initClick()
+    }
+    if (prev.image !== this.props.image) {
+      this._initImage()
     }
   }
 

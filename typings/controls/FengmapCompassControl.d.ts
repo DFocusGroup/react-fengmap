@@ -3,11 +3,11 @@ import { Fengmap } from '../FengmapBase'
 
 export interface FengmapCompassControlProps {
   visible: boolean
-  image: {
+  image?: {
     bg: string
     fg: string
   }
-  onClick: (mapInstance: Fengmap) => void
+  onClick?: (mapInstance: Fengmap) => void
 }
 
 export interface FengmapCompassControlState {}
