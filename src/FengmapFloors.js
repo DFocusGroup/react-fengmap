@@ -31,20 +31,24 @@ class FengmapFloors extends Component {
 
   _changeFloor = () => {
     const { onFloorChange, value } = this.props
-    if (!this.mapInstance || isNil(this.mapInstance.listFloors)) {
-      return
-    }
-    const { listFloors } = this.mapInstance
-    const index = listFloors.findIndex(f => f === value)
-    const groupId = index + 1
-    this.mapInstance.visibleGroupIDs = [groupId]
-    this.mapInstance.focusGroupID = groupId
+    try {
+      if (!this.mapInstance || isNil(this.mapInstance.listFloors)) {
+        return
+      }
+      const { listFloors } = this.mapInstance
+      const index = listFloors.findIndex(f => f === value)
+      const groupId = index + 1
+      this.mapInstance.visibleGroupIDs = [groupId]
+      this.mapInstance.focusGroupID = groupId
 
-    if (onFloorChange) {
-      onFloorChange({
-        floorLevel: value,
-        groupId
-      })
+      if (onFloorChange) {
+        onFloorChange({
+          floorLevel: value,
+          groupId
+        })
+      }
+    } catch (error) {
+      // such error: TypeError: Cannot read property 'scene_data' of undefined, should not be printed
     }
   }
 
