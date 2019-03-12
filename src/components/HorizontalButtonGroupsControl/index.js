@@ -89,32 +89,32 @@ class HorizontalButtonGroupsControl extends React.Component {
     if (!ctrlOptions.position) {
       return {
         right: `${10 + ctrlOptions.offset.x}px`,
-        top: `${height * 0.82 + ctrlOptions.offset.y}px`
+        top: `${height * 0.82 - ctrlOptions.offset.y}px`
       }
     }
 
     if (sdk.controlPositon.LEFT_TOP === ctrlOptions.position) {
       return {
         left: `${10 + ctrlOptions.offset.x}px`,
-        top: `${height * 0.18 + ctrlOptions.offset.y}px`
+        top: `${height * 0.18 - ctrlOptions.offset.y}px`
       }
     }
     if (sdk.controlPositon.LEFT_BOTTOM === ctrlOptions.position) {
       return {
         left: `${10 + ctrlOptions.offset.x}px`,
-        top: `${height * 0.82 + ctrlOptions.offset.y}px`
+        top: `${height * 0.82 - ctrlOptions.offset.y}px`
       }
     }
     if (sdk.controlPositon.RIGHT_TOP === ctrlOptions.position) {
       return {
         right: `${10 + ctrlOptions.offset.x}px`,
-        top: `${height * 0.18 + ctrlOptions.offset.y}px`
+        top: `${height * 0.18 - ctrlOptions.offset.y}px`
       }
     }
     if (sdk.controlPositon.RIGHT_BOTTOM === ctrlOptions.position) {
       return {
         right: `${10 + ctrlOptions.offset.x}px`,
-        top: `${height * 0.82 + ctrlOptions.offset.y}px`
+        top: `${height * 0.82 - ctrlOptions.offset.y}px`
       }
     }
   }
