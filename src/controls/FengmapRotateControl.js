@@ -2,7 +2,6 @@ import React from 'react'
 import FengmapBaseControl from '../bases/FengmapBaseControl'
 import PropTypes from 'prop-types'
 
-import { grabNumbers } from '../helpers/object'
 import { mergeWithOffset } from '../helpers/map'
 
 import rotateIcon from '../assets/icon-rotate-7.jpg'

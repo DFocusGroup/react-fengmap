@@ -1,0 +1,217 @@
+import React from 'react'
+import PropTypes from 'prop-types'
+import classnames from 'classnames'
+
+import styles from './index.css'
+
+class HorizontalButtonGroupsControl extends React.Component {
+  static propTypes = {
+    map: PropTypes.any,
+    sdk: PropTypes.any,
+    height: PropTypes.number,
+    ctrlOptions: PropTypes.shape({
+      showBtnCount: PropTypes.number,
+      position: PropTypes.number,
+      offset: PropTypes.shape({
+        x: PropTypes.number,
+        y: PropTypes.number
+      }),
+      imgURL: PropTypes.string
+    })
+  }
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      focusFloor: props.map.focusFloor,
+      showGroups: false
+    }
+  }
+
+  componentDidMount() {
+    const { map } = this.props
+
+    map.on('focusGroupIDChanged', () => {
+      this.setState({
+        focusFloor: map.focusFloor
+      })
+    })
+
+    setTimeout(() => {
+      this.setState({
+        focusFloor: map.focusFloor
+      })
+    }, 500)
+  }
+
+  componentWillUnmount() {
+    const { map } = this.props
+    map.off('focusGroupIDChanged')
+  }
+
+  onChange = () => {}
+
+  _getPosition = () => {
+    const { height, sdk, ctrlOptions } = this.props
+    if (ctrlOptions && !ctrlOptions.offset) {
+      if (!ctrlOptions.position) {
+        return {
+          right: '10px',
+          top: `${height * 0.82}px`
+        }
+      }
+      if (sdk.controlPositon.LEFT_TOP === ctrlOptions.position) {
+        return {
+          left: '10px',
+          top: `${height * 0.18}px`
+        }
+      }
+      if (sdk.controlPositon.LEFT_BOTTOM === ctrlOptions.position) {
+        return {
+          left: '10px',
+          top: `${height * 0.82}px`
+        }
+      }
+      if (sdk.controlPositon.RIGHT_TOP === ctrlOptions.position) {
+        return {
+          right: '10px',
+          top: `${height * 0.18}px`
+        }
+      }
+      if (sdk.controlPositon.RIGHT_BOTTOM === ctrlOptions.position) {
+        return {
+          right: '10px',
+          top: `${height * 0.82}px`
+        }
+      }
+    }
+
+    if (!ctrlOptions.position) {
+      return {
+        right: `${10 + ctrlOptions.offset.x}px`,
+        top: `${height * 0.82 + ctrlOptions.offset.y}px`
+      }
+    }
+
+    if (sdk.controlPositon.LEFT_TOP === ctrlOptions.position) {
+      return {
+        left: `{10 + ctrlOptions.offset.x}px`,
+        top: `${height * 0.18 + ctrlOptions.offset.y}px`
+      }
+    }
+    if (sdk.controlPositon.LEFT_BOTTOM === ctrlOptions.position) {
+      return {
+        left: `{10 + ctrlOptions.offset.x}px`,
+        top: `${height * 0.82 + ctrlOptions.offset.y}px`
+      }
+    }
+    if (sdk.controlPositon.RIGHT_TOP === ctrlOptions.position) {
+      return {
+        right: `{10 + ctrlOptions.offset.x}px`,
+        top: `${height * 0.18 + ctrlOptions.offset.y}px`
+      }
+    }
+    if (sdk.controlPositon.RIGHT_BOTTOM === ctrlOptions.position) {
+      return {
+        right: `{10 + ctrlOptions.offset.x}px`,
+        top: `${height * 0.82 + ctrlOptions.offset.y}px`
+      }
+    }
+  }
+
+  _toggleShowGroups = () => {
+    this.setState({
+      showGroups: !this.state.showGroups
+    })
+  }
+
+  _getFloorName = floorLevel => {
+    if (floorLevel > 0) {
+      return `F${floorLevel}`
+    }
+    return `B${Math.abs(floorLevel)}`
+  }
+
+  _changeFloor = floor => {
+    const { map } = this.props
+
+    map.focusFloor = floor
+  }
+
+  _getDisplayGroups = containerPosition => {
+    const { map } = this.props
+    const { showGroups } = this.state
+    if (!showGroups) {
+      return null
+    }
+
+    const groupsContainerWidth = 42 * map.listFloors.length
+    const groupsContainerPosition = {}
+
+    if (containerPosition.right) {
+      const rightNumber = +containerPosition.right.replace('px', '')
+      groupsContainerPosition.right = `${rightNumber + 42}px`
+    } else {
+      const leftNumber = +containerPosition.left.replace('px', '')
+      groupsContainerPosition.left = `${leftNumber + 42}px`
+    }
+
+    return (
+      <div
+        className={styles.groupsContainer}
+        style={{ width: `${groupsContainerWidth}px`, ...groupsContainerPosition }}
+      >
+        {map.listFloors.map((floor, i) => {
+          if (i === map.listFloors.length - 1) {
+            return (
+              <div
+                key={floor}
+                className={classnames(styles.floorBlock, styles.inlineBlock, {
+                  [styles.active]: floor === map.focusFloor
+                })}
+                onClick={() => this._changeFloor(floor)}
+              >
+                {this._getFloorName(floor)}
+              </div>
+            )
+          }
+
+          return (
+            <div
+              key={floor}
+              className={classnames(styles.floorBlock, styles.inlineBlock, {
+                [styles.active]: floor === map.focusFloor
+              })}
+              onClick={() => this._changeFloor(floor)}
+              style={{
+                borderBottomRightRadius: '0px'
+              }}
+            >
+              {this._getFloorName(floor)}
+            </div>
+          )
+        })}
+      </div>
+    )
+  }
+
+  render() {
+    const { focusFloor } = this.state
+
+    const containerPosition = this._getPosition()
+
+    return (
+      <div className={styles.horizontalButtonGroup} style={containerPosition}>
+        {this._getDisplayGroups(containerPosition)}
+        <div
+          className={classnames(styles.floorBlock, styles.initFloor, styles.active)}
+          onClick={this._toggleShowGroups}
+        >
+          {this._getFloorName(focusFloor)}
+        </div>
+      </div>
+    )
+  }
+}
+
+export default HorizontalButtonGroupsControl

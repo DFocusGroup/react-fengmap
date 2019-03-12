@@ -1,6 +1,6 @@
 {
   "name": "react-fengmap",
-  "version": "2.6.2",
+  "version": "2.7.0",
   "description": "",
   "author": "leftstick",
   "typings": "typings/index.d.ts",
@@ -71,5 +71,8 @@
   "files": [
     "dist",
     "typings"
-  ]
+  ],
+  "dependencies": {
+    "classnames": "^2.2.6"
+  }
 }
