@@ -35,6 +35,19 @@ class FengmapFloorControl extends FengmapBaseControl {
     if (!parent.isFengmapBase) {
       throw new Error('<FengmapFloorControl /> cannot work with <FengmapFloors />')
     }
+
+    this.resizeHandler = () => {
+      if (map.height < 550) {
+        document.querySelector('.fm-control-groups-btn')['style'].display = 'none'
+        document.querySelector('.fm-layer-list')['style'].display = 'none'
+      } else {
+        document.querySelector('.fm-control-groups-btn')['style'].display = 'block'
+        document.querySelector('.fm-layer-list')['style'].display = 'block'
+      }
+    }
+
+    window.addEventListener('resize', this.resizeHandler)
+
     if (map.height < 550) {
       return this.setState({
         showHorizontal: true,
@@ -56,6 +69,10 @@ class FengmapFloorControl extends FengmapBaseControl {
         groupId: map.focusGroupID
       })
     })
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.resizeHandler)
   }
 
   render() {
