@@ -37,25 +37,24 @@ class FengmapFloorControl extends FengmapBaseControl {
     }
 
     this.resizeHandler = () => {
-      if (map.height < 550) {
-        document.querySelector('.fm-control-groups-btn')['style'].display = 'none'
-        document.querySelector('.fm-layer-list')['style'].display = 'none'
-      } else {
-        document.querySelector('.fm-control-groups-btn')['style'].display = 'block'
-        document.querySelector('.fm-layer-list')['style'].display = 'block'
-      }
+      setTimeout(() => {
+        if (map.height < 550) {
+          document.querySelector('.fm-control-groups-btn')['style'].zIndex = -1
+          document.querySelector('.fm-layer-list')['style'].zIndex = -1
+          this.setState({
+            showHorizontal: true
+          })
+        } else {
+          document.querySelector('.fm-control-groups-btn')['style'].zIndex = 1
+          document.querySelector('.fm-layer-list')['style'].zIndex = 1
+          this.setState({
+            showHorizontal: false
+          })
+        }
+      })
     }
 
     window.addEventListener('resize', this.resizeHandler)
-
-    if (map.height < 550) {
-      return this.setState({
-        showHorizontal: true,
-        ctrlOptions,
-        map,
-        fengmapSDK
-      })
-    }
 
     const control = new fengmapSDK.buttonGroupsControl(map, ctrlOptions)
 
@@ -69,6 +68,14 @@ class FengmapFloorControl extends FengmapBaseControl {
         groupId: map.focusGroupID
       })
     })
+
+    this.setState({
+      ctrlOptions,
+      map,
+      fengmapSDK
+    })
+
+    setTimeout(this.resizeHandler, 500)
   }
 
   componentWillUnmount() {
@@ -78,7 +85,8 @@ class FengmapFloorControl extends FengmapBaseControl {
   render() {
     const { showHorizontal, ctrlOptions, map, fengmapSDK } = this.state
     return (
-      showHorizontal && (
+      showHorizontal &&
+      map && (
         <HorizontalButtonGroupsControl ctrlOptions={ctrlOptions || {}} height={map.height} sdk={fengmapSDK} map={map} />
       )
     )
