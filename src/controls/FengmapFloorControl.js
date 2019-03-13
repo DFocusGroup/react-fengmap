@@ -14,10 +14,9 @@ class FengmapFloorControl extends FengmapBaseControl {
       offset: PropTypes.shape({
         x: PropTypes.number,
         y: PropTypes.number
-      }),
-      imgURL: PropTypes.string
+      })
     }).isRequired,
-    onFloorChange: PropTypes.func
+    labelFormater: PropTypes.func
   }
 
   constructor(props) {
@@ -61,13 +60,22 @@ class FengmapFloorControl extends FengmapBaseControl {
   }
 
   render() {
+    const { labelFormater } = this.props
     const { showHorizontal, ctrlOptions, map, fengmapSDK } = this.state
 
     if (!map) {
       return null
     }
     const ButtonGroupsControl = showHorizontal ? HorizontalButtonGroupsControl : VerticalButtonGroupsControl
-    return <ButtonGroupsControl ctrlOptions={ctrlOptions || {}} height={map.height} sdk={fengmapSDK} map={map} />
+    return (
+      <ButtonGroupsControl
+        ctrlOptions={ctrlOptions || {}}
+        height={map.height}
+        sdk={fengmapSDK}
+        map={map}
+        labelFormater={labelFormater}
+      />
+    )
   }
 }
 

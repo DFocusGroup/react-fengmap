@@ -3,16 +3,14 @@ import { Fengmap } from '../FengmapBase'
 
 export interface FengmapFloorControlProps {
   ctrlOptions: {
-    allLayer: boolean
     showBtnCount: number
     position: number
     offset: {
       x: number
       y: number
     }
-    imgURL: string
   }
-  onFloorChange: ({ floorLevel: Number, groupId: number }) => void
+  labelFormater: (floorLevel: Number) => string
 }
 
 export interface FengmapFloorControlState {}

@@ -9,8 +9,6 @@
   width: 42px;
   height: 42px;
   background-color: white;
-  box-shadow: rgba(0, 0, 0, 0.3) 2px 2px 3px;
-  border-radius: 2px;
   text-align: center;
   cursor: pointer;
   font-size: 0.8em;
@@ -18,6 +16,11 @@
   text-transform: uppercase;
   line-height: 42px;
   color: #000;
+}
+
+.withBorder {
+  box-shadow: rgba(0, 0, 0, 0.3) 2px 2px 3px;
+  border-radius: 2px;
 }
 
 .active {
@@ -31,4 +34,24 @@
 .groupsContainer {
   height: 42px;
   position: absolute;
+  overflow-x: auto;
+  box-shadow: rgba(0, 0, 0, 0.3) 2px 2px 3px;
+  border-radius: 2px;
+  white-space: nowrap;
+}
+
+.groupsContainer::-webkit-scrollbar:horizontal,
+.groupsContainer::-webkit-scrollbar:vertical {
+  width: 3px;
+}
+
+.groupsContainer::-webkit-scrollbar-track:horizontal,
+.groupsContainer::-webkit-scrollbar-track:vertical {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+.groupsContainer::-webkit-scrollbar-thumb:horizontal,
+.groupsContainer::-webkit-scrollbar-thumb:vertical {
+  background-color: darkgrey;
+  outline: 1px solid slategrey;
 }

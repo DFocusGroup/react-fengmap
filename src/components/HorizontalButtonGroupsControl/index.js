@@ -15,9 +15,9 @@ class HorizontalButtonGroupsControl extends React.Component {
       offset: PropTypes.shape({
         x: PropTypes.number,
         y: PropTypes.number
-      }),
-      imgURL: PropTypes.string
-    })
+      })
+    }),
+    labelFormater: PropTypes.func
   }
 
   constructor(props) {
@@ -126,6 +126,11 @@ class HorizontalButtonGroupsControl extends React.Component {
   }
 
   _getFloorName = floorLevel => {
+    const { labelFormater } = this.props
+    if (labelFormater) {
+      return `${labelFormater(floorLevel)}`
+    }
+
     if (floorLevel > 0) {
       return `F${floorLevel}`
     }
@@ -139,14 +144,20 @@ class HorizontalButtonGroupsControl extends React.Component {
   }
 
   _getDisplayGroups = containerPosition => {
-    const { map } = this.props
+    const { map, ctrlOptions } = this.props
     const { showGroups } = this.state
+    const { showBtnCount } = ctrlOptions
+
     if (!showGroups) {
       return null
     }
 
-    const groupsContainerWidth = 42 * map.listFloors.length
-    const groupsContainerPosition = {}
+    const realBtnCount =
+      showBtnCount > map.listFloors.length || showBtnCount < 1 ? map.listFloors.length : showBtnCount || 3
+
+    const groupsContainerPosition = {
+      width: `${42 * realBtnCount}px`
+    }
 
     if (containerPosition.right) {
       const rightNumber = +containerPosition.right.replace('px', '')
@@ -157,25 +168,8 @@ class HorizontalButtonGroupsControl extends React.Component {
     }
 
     return (
-      <div
-        className={styles.groupsContainer}
-        style={{ width: `${groupsContainerWidth}px`, ...groupsContainerPosition }}
-      >
+      <div className={styles.groupsContainer} style={groupsContainerPosition}>
         {map.listFloors.map((floor, i) => {
-          if (i === map.listFloors.length - 1) {
-            return (
-              <div
-                key={floor}
-                className={classnames(styles.floorBlock, styles.inlineBlock, {
-                  [styles.active]: floor === map.focusFloor
-                })}
-                onClick={() => this._changeFloor(floor)}
-              >
-                {this._getFloorName(floor)}
-              </div>
-            )
-          }
-
           return (
             <div
               key={floor}
@@ -183,9 +177,6 @@ class HorizontalButtonGroupsControl extends React.Component {
                 [styles.active]: floor === map.focusFloor
               })}
               onClick={() => this._changeFloor(floor)}
-              style={{
-                borderBottomRightRadius: '0px'
-              }}
             >
               {this._getFloorName(floor)}
             </div>
@@ -204,7 +195,7 @@ class HorizontalButtonGroupsControl extends React.Component {
       <div className={styles.horizontalButtonGroup} style={containerPosition}>
         {this._getDisplayGroups(containerPosition)}
         <div
-          className={classnames(styles.floorBlock, styles.initFloor, styles.active)}
+          className={classnames(styles.floorBlock, styles.initFloor, styles.withBorder, styles.active)}
           onClick={this._toggleShowGroups}
         >
           {this._getFloorName(focusFloor)}

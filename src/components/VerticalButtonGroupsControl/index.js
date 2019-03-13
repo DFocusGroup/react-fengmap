@@ -15,9 +15,9 @@ class VerticalButtonGroupsControl extends React.Component {
       offset: PropTypes.shape({
         x: PropTypes.number,
         y: PropTypes.number
-      }),
-      imgURL: PropTypes.string
-    })
+      })
+    }),
+    labelFormater: PropTypes.func
   }
 
   constructor(props) {
@@ -124,6 +124,10 @@ class VerticalButtonGroupsControl extends React.Component {
   }
 
   _getFloorName = floorLevel => {
+    const { labelFormater } = this.props
+    if (labelFormater) {
+      return `${labelFormater(floorLevel)}`
+    }
     if (floorLevel > 0) {
       return `F${floorLevel}`
     }
@@ -145,9 +149,8 @@ class VerticalButtonGroupsControl extends React.Component {
       return null
     }
 
-    const realBtnCount = showBtnCount > map.listFloors.length || showBtnCount < 1 ? map.listFloors.length : showBtnCount
-
-    console.log('realBtnCount', realBtnCount)
+    const realBtnCount =
+      showBtnCount > map.listFloors.length || showBtnCount < 1 ? map.listFloors.length : showBtnCount || 3
 
     const groupsContainerPosition = {
       top: `-${realBtnCount * 42 + 10}px`,
@@ -155,7 +158,7 @@ class VerticalButtonGroupsControl extends React.Component {
     }
 
     return (
-      <div className={styles.groupsContainer} style={{ ...groupsContainerPosition }}>
+      <div className={styles.groupsContainer} style={groupsContainerPosition}>
         {map.listFloors.map((floor, i) => {
           return (
             <div
