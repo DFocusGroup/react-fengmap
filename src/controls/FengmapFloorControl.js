@@ -38,15 +38,15 @@ class FengmapFloorControl extends FengmapBaseControl {
 
     this.resizeHandler = () => {
       setTimeout(() => {
-        if (map.height < 550) {
-          document.querySelector('.fm-control-groups-btn')['style'].zIndex = -1
-          document.querySelector('.fm-layer-list')['style'].zIndex = -1
+        if (map.height < 450) {
+          document.querySelector('.fm-control-groups-btn')['style'].display = 'none'
+          document.querySelector('.fm-layer-list')['style'].display = 'none'
           this.setState({
             showHorizontal: true
           })
         } else {
-          document.querySelector('.fm-control-groups-btn')['style'].zIndex = 1
-          document.querySelector('.fm-layer-list')['style'].zIndex = 1
+          document.querySelector('.fm-control-groups-btn')['style'].display = 'block'
+          document.querySelector('.fm-layer-list')['style'].display = 'block'
           this.setState({
             showHorizontal: false
           })
