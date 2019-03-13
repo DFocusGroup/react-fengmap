@@ -51,7 +51,7 @@ class FengmapFloorControl extends FengmapBaseControl {
             showHorizontal: false
           })
         }
-      })
+      }, 1000)
     }
 
     window.addEventListener('resize', this.resizeHandler)
