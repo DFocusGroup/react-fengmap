@@ -36,6 +36,8 @@ class FengmapFloorControl extends FengmapBaseControl {
       throw new Error('<FengmapFloorControl /> cannot work with <FengmapFloors />')
     }
 
+    const control = new fengmapSDK.buttonGroupsControl(map, ctrlOptions)
+
     this.resizeHandler = () => {
       setTimeout(() => {
         if (map.height < 450) {
@@ -47,19 +49,24 @@ class FengmapFloorControl extends FengmapBaseControl {
         } else {
           document.querySelector('.fm-control-groups-btn')['style'].display = 'block'
           document.querySelector('.fm-layer-list')['style'].display = 'block'
-          this.setState({
-            showHorizontal: false
-          })
+
+          this.setState(
+            {
+              showHorizontal: false
+            },
+            () => {
+              control.focusGroupListener()
+            }
+          )
         }
       }, 1000)
     }
 
     window.addEventListener('resize', this.resizeHandler)
 
-    const control = new fengmapSDK.buttonGroupsControl(map, ctrlOptions)
-
     control.onChange((groups, allLayer) => {
       const { onFloorChange } = this.props
+      control.focusGroupListener()
       if (!onFloorChange) {
         return
       }
