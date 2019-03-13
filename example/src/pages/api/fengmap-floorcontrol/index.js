@@ -82,7 +82,7 @@ class FengmapFloorControlDoc extends Component {
             <FengmapFloorControl
               ctrlOptions={{
                 position: fengmapSDK.controlPositon.RIGHT_BOTTOM,
-                showBtnCount: 7
+                showBtnCount: 4
               }}
               onFloorChange={floor => {
                 console.log(`Changed floor to: `, floor)

@@ -1,0 +1,48 @@
+.verticalButtonGroup {
+  position: absolute;
+  z-index: 10;
+  width: 42px;
+}
+
+.floorBlock {
+  width: 42px;
+  height: 42px;
+  background-color: white;
+  text-align: center;
+  cursor: pointer;
+  font-size: 0.8em;
+  font-weight: bold;
+  text-transform: uppercase;
+  line-height: 42px;
+  color: #000;
+}
+
+.withBorder {
+  box-shadow: rgba(0, 0, 0, 0.3) 2px 2px 3px;
+  border-radius: 2px;
+}
+
+.active {
+  color: rgb(30, 130, 250);
+}
+
+.groupsContainer {
+  height: 42px;
+  position: absolute;
+  overflow-y: auto;
+  box-shadow: rgba(0, 0, 0, 0.3) 2px 2px 3px;
+  border-radius: 2px;
+}
+
+.groupsContainer::-webkit-scrollbar {
+  width: 3px;
+}
+
+.groupsContainer::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+.groupsContainer::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  outline: 1px solid slategrey;
+}

@@ -3,6 +3,7 @@ import FengmapBaseControl from '../bases/FengmapBaseControl'
 import PropTypes from 'prop-types'
 
 import HorizontalButtonGroupsControl from '../components/HorizontalButtonGroupsControl'
+import VerticalButtonGroupsControl from '../components/VerticalButtonGroupsControl'
 
 class FengmapFloorControl extends FengmapBaseControl {
   static propTypes = {
@@ -36,45 +37,15 @@ class FengmapFloorControl extends FengmapBaseControl {
       throw new Error('<FengmapFloorControl /> cannot work with <FengmapFloors />')
     }
 
-    const control = new fengmapSDK.buttonGroupsControl(map, ctrlOptions)
-
     this.resizeHandler = () => {
       setTimeout(() => {
-        if (map.height < 450) {
-          document.querySelector('.fm-control-groups-btn')['style'].display = 'none'
-          document.querySelector('.fm-layer-list')['style'].display = 'none'
-          this.setState({
-            showHorizontal: true
-          })
-        } else {
-          document.querySelector('.fm-control-groups-btn')['style'].display = 'block'
-          document.querySelector('.fm-layer-list')['style'].display = 'block'
-
-          this.setState(
-            {
-              showHorizontal: false
-            },
-            () => {
-              control.focusGroupListener()
-            }
-          )
-        }
+        this.setState({
+          showHorizontal: map.height < 450
+        })
       }, 1000)
     }
 
     window.addEventListener('resize', this.resizeHandler)
-
-    control.onChange((groups, allLayer) => {
-      const { onFloorChange } = this.props
-      control.focusGroupListener()
-      if (!onFloorChange) {
-        return
-      }
-      onFloorChange({
-        floorLevel: map.focusFloor,
-        groupId: map.focusGroupID
-      })
-    })
 
     this.setState({
       ctrlOptions,
@@ -91,12 +62,12 @@ class FengmapFloorControl extends FengmapBaseControl {
 
   render() {
     const { showHorizontal, ctrlOptions, map, fengmapSDK } = this.state
-    return (
-      showHorizontal &&
-      map && (
-        <HorizontalButtonGroupsControl ctrlOptions={ctrlOptions || {}} height={map.height} sdk={fengmapSDK} map={map} />
-      )
-    )
+
+    if (!map) {
+      return null
+    }
+    const ButtonGroupsControl = showHorizontal ? HorizontalButtonGroupsControl : VerticalButtonGroupsControl
+    return <ButtonGroupsControl ctrlOptions={ctrlOptions || {}} height={map.height} sdk={fengmapSDK} map={map} />
   }
 }
 
