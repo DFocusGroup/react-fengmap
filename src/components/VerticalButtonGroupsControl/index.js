@@ -125,6 +125,10 @@ class VerticalButtonGroupsControl extends React.Component {
 
   _getFloorName = floorLevel => {
     const { labelFormater } = this.props
+    if (!floorLevel || Number.isNaN(floorLevel)) {
+      return ''
+    }
+
     if (labelFormater) {
       return `${labelFormater(floorLevel)}`
     }

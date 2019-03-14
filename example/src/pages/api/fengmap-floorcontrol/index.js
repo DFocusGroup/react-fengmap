@@ -21,7 +21,7 @@ class FengmapFloorControlDoc extends Component {
         <Highlight language="jsx">
           {`// 只能配合基础地图
 <FengmapBase mapId={MapId} style={Style} fengmapSDK={SDK} mapOptions={MapOptions} >
-  <FengmapFloorControl ctrlOptions={CtrlOptions} onFloorChange={OnFloorChange} />
+  <FengmapFloorControl ctrlOptions={CtrlOptions} labelFormater={LabelFormater} />
 </FengmapBase>
 `}
         </Highlight>
@@ -47,9 +47,9 @@ class FengmapFloorControlDoc extends Component {
               )
             },
             {
-              prop: 'onFloorChange',
-              type: 'Function',
-              description: '楼层切换时的回调函数'
+              prop: 'labelFormater',
+              type: '(floor: Number) => String',
+              description: '自定义楼层标签'
             }
           ]}
         />
@@ -84,9 +84,7 @@ class FengmapFloorControlDoc extends Component {
                 position: fengmapSDK.controlPositon.RIGHT_BOTTOM,
                 showBtnCount: 4
               }}
-              onFloorChange={floor => {
-                console.log(`Changed floor to: `, floor)
-              }}
+              labelFormater={v => v + 'F'}
             />
           </FengmapBase>
 
@@ -123,7 +121,7 @@ export default function Example(props) {
           position: fengmapSDK.controlPositon.RIGHT_BOTTOM,
           showBtnCount: 7
         }}
-        onFloorChange={props.changeFloor}
+        labelFormater={v => v + 'F'}
       />
     </FengmapBase>
   )
