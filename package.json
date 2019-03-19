@@ -1,8 +1,8 @@
 {
   "name": "react-fengmap",
-  "version": "2.7.7",
+  "version": "2.7.8",
   "description": "",
-  "author": "leftstick",
+  "author": "Howard.Zuo",
   "typings": "typings/index.d.ts",
   "license": "MIT",
   "repository": {

@@ -67,6 +67,9 @@ class FengmapNavigation extends FengmapBaseOverlay {
 
   _setRoute = (prev, props) => {
     const { start, end, onDrawComplete } = props
+    if (!this.navigation) {
+      return
+    }
     if (start !== prev.start || end !== prev.end) {
       this.navigation.clearAll()
     }
