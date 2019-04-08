@@ -1,6 +1,7 @@
 import React from 'react'
 import { Row, Col } from 'antd'
 import Highlight from '../../Components/Highlight'
+import CodeSnippet from '../../Components/CodeSnippet'
 
 class Home extends React.Component {
   render() {
@@ -78,6 +79,19 @@ class Example extends React.Component {
   }
 }`}
             </Highlight>
+
+            <h1>注</h1>
+            <p>
+              通过<CodeSnippet>loadComplete</CodeSnippet>
+              事件得到的原始蜂鸟地图的<CodeSnippet>mapInstance</CodeSnippet>里，会多两个属性：
+              <CodeSnippet>focusFloor</CodeSnippet>、<CodeSnippet>listFloors</CodeSnippet>。
+            </p>
+            <p>
+              <CodeSnippet>focusFloor</CodeSnippet>: 当前聚焦的楼层
+            </p>
+            <p>
+              <CodeSnippet>listFloors</CodeSnippet>: 所有楼层数据，类型为Array
+            </p>
           </Col>
         </Row>
       </React.Fragment>
