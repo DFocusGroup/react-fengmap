@@ -146,6 +146,8 @@ class HorizontalButtonGroupsControl extends React.Component {
     const { map } = this.props
 
     map.focusFloor = floor
+
+    this._toggleShowGroups()
   }
 
   _getDisplayGroups = containerPosition => {
