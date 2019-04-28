@@ -12,10 +12,10 @@ class FengmapResetControlDoc extends Component {
   static propTypes = {
     screenWidth: PropTypes.number
   }
-
   render() {
     const { screenWidth } = this.props
     const contentWidth = screenWidth > 1000 ? screenWidth - 280 - 24 * 4 - 40 : screenWidth
+    console.log(fengmapSDK.controlPositon.RIGHT_BOTTOM)
     return (
       <React.Fragment>
         <Highlight language="jsx">
@@ -38,7 +38,18 @@ class FengmapResetControlDoc extends Component {
             {
               prop: 'ctrlOptions',
               type: 'Object',
-              description: <React.Fragment />
+              description: (
+                <React.Fragment>
+                  请参考
+                  <a
+                    href="https://www.fengmap.com/docs/js/v2.2.0_beta/classes/fengmap.zoomControl.html"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ctrlOpts
+                  </a>
+                </React.Fragment>
+              )
             }
           ]}
         />
@@ -69,7 +80,7 @@ class FengmapResetControlDoc extends Component {
           >
             <FengmapResetControl
               ctrlOptions={{
-                position: 'LEFT_TOP',
+                position: fengmapSDK.controlPositon.LEFT_TOP,
                 imgURL: resolvePublicPath('/assets/reset.png')
               }}
             />
@@ -104,8 +115,8 @@ export default function Example(props) {
     >
     <FengmapResetControl
     ctrlOptions={{
-      position: 'LEFT_TOP',//控件位置：可选LEFT_TOP，RIGHT_TOP，LEFT_BOTTOM，RIGHT_BOTTOM；默认LEFT_TOP
-      imgURL: resolvePublicPath('/assets/')//非必传，默认为默认图标
+      position: fengmapSDK.controlPositon.LEFT_TOP,
+      imgURL: resolvePublicPath('/assets/reset.png')
     }}
   />
     </FengmapFloors>
