@@ -23,6 +23,11 @@ export const controlRoutes = [
     description: '地图旋转控件'
   },
   {
+    url: '/api/fengmap-resetcontrol',
+    displayTitle: '<FengmapResetControl />',
+    description: '地图重置控件'
+  },
+  {
     url: '/api/fengmap-floorcontrol',
     displayTitle: '<FengmapFloorControl />',
     description: '地图楼层切换控件'
