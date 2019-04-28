@@ -15,7 +15,6 @@ class FengmapResetControlDoc extends Component {
   render() {
     const { screenWidth } = this.props
     const contentWidth = screenWidth > 1000 ? screenWidth - 280 - 24 * 4 - 40 : screenWidth
-    console.log(fengmapSDK.controlPositon.RIGHT_BOTTOM)
     return (
       <React.Fragment>
         <Highlight language="jsx">
