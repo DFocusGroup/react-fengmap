@@ -11,7 +11,11 @@ const RESET_STYLE = {
 class FengmapResetControl extends FengmapBaseControl {
   static propTypes = {
     ctrlOptions: PropTypes.shape({
-      position: PropTypes.string
+      position: PropTypes.number,
+      offset: PropTypes.shape({
+        x: PropTypes.number,
+        y: PropTypes.number
+      })
     }).isRequired
   }
   constructor(props) {
@@ -46,18 +50,24 @@ class FengmapResetControl extends FengmapBaseControl {
 
 export default FengmapResetControl
 function setResetPosition(ctrlOptions) {
+  let x = 0
+  let y = 0
   const { position } = ctrlOptions
+  if (ctrlOptions.hasOwnProperty('offset')) {
+    x = ctrlOptions.offset.x
+    y = ctrlOptions.offset.y
+  }
   let { imgURL } = ctrlOptions
   switch (position) {
-    case 'LEFT_TOP':
-      return { left: '10px', top: '20px', backgroundImage: `url(${imgURL})` }
-    case 'RIGHT_TOP':
-      return { right: '10px', top: '20px', backgroundImage: `url(${imgURL})` }
-    case 'LEFT_BOTTOM':
-      return { left: '10px', bottom: '20px', backgroundImage: `url(${imgURL})` }
-    case 'RIGHT_BOTTOM':
-      return { right: '10px', bottom: '20px', backgroundImage: `url(${imgURL})` }
+    case 1:
+      return { left: `${10 + x}px`, top: `${50 + y}px`, backgroundImage: `url(${imgURL})` }
+    case 2:
+      return { right: `${10 + x}px`, top: `${50 + y}px`, backgroundImage: `url(${imgURL})` }
+    case 3:
+      return { left: `${10 + x}px`, bottom: `${50 + y}px`, backgroundImage: `url(${imgURL})` }
+    case 4:
+      return { right: `${10 + x}px`, bottom: `${50 + y}px`, backgroundImage: `url(${imgURL})` }
     default:
-      return { right: '10px', top: '20px', backgroundImage: "url('/assets/reset.png')" }
+      return { right: `${10 + x}px`, bottom: `${50 + y}px`, backgroundImage: "url('/assets/reset.png')" }
   }
 }
