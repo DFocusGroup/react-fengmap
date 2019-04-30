@@ -1,6 +1,7 @@
 import React from 'react'
 import FengmapBaseControl from '../bases/FengmapBaseControl'
 import PropTypes from 'prop-types'
+
 const RESET_STYLE = {
   position: 'absolute',
   width: '42PX',
@@ -10,7 +11,7 @@ const RESET_STYLE = {
   cursor: 'pointer',
   backgroundColor: '#fff'
 }
-let clickMark = true
+
 class FengmapResetControl extends FengmapBaseControl {
   static propTypes = {
     ctrlOptions: PropTypes.shape({
@@ -21,45 +22,56 @@ class FengmapResetControl extends FengmapBaseControl {
       })
     }).isRequired
   }
+
   constructor(props) {
     super(props)
     this.state = {
       ctrlOptions: null,
-      parent: null
+      parent: null,
+      map: null
     }
+    this.btnRef = React.createRef()
   }
+
   load = (map, fengmapSDK, parent) => {
     const { ctrlOptions } = this.props
     this.setState({
+      map,
       ctrlOptions,
       parent
     })
   }
+
   resetMap = () => {
-    const {
-      parent,
-      ctrlOptions: { delayed }
-    } = this.state
-    if (parent && clickMark) {
-      clickMark = false
-      parent._loadMap(parent.props.mapId)
-      setTimeout(() => {
-        clickMark = true
-      }, delayed || 10000)
-    }
+    const original = this.btnRef.current.style['pointer-events'] || 'auto'
+    this.btnRef.current.style['pointer-events'] = 'none'
+
+    const { parent } = this.state
+
+    parent._destroy()
+    parent._loadMap(parent.props.mapId).then(() => {
+      this.btnRef.current.style['pointer-events'] = original
+    })
   }
+
   render() {
-    const { ctrlOptions } = this.state
-    let resetPosition = ''
-    if (ctrlOptions) {
-      resetPosition = setResetPosition(ctrlOptions)
+    const { ctrlOptions, map } = this.state
+    if (!map) {
+      return null
     }
-    return <div onClick={this.resetMap} style={Object.assign({}, RESET_STYLE, resetPosition)} />
+    return (
+      <div
+        ref={this.btnRef}
+        onClick={this.resetMap}
+        style={Object.assign({}, RESET_STYLE, getResetPosition(ctrlOptions))}
+      />
+    )
   }
 }
 
 export default FengmapResetControl
-function setResetPosition(ctrlOptions) {
+
+function getResetPosition(ctrlOptions) {
   let x = 0
   let y = 0
   const { position } = ctrlOptions
@@ -67,7 +79,8 @@ function setResetPosition(ctrlOptions) {
     x = ctrlOptions.offset.x
     y = ctrlOptions.offset.y
   }
-  let { imgURL } = ctrlOptions
+
+  const { imgURL } = ctrlOptions
 
   switch (position) {
     case 1:

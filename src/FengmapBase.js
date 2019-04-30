@@ -68,38 +68,41 @@ class FengmapBase extends Component {
   }
 
   _loadMap = mapId => {
-    const { mapOptions, events, fengmapSDK } = this.props
-    if (!mapId || !fengmapSDK || isOrderIE()) {
-      return
-    }
-    if (this.mapInstance) {
-      this.mapContainer.current.innerHTML = ''
-    }
-    this.mapInstance = new fengmapSDK.FMMap(Object.assign({}, mapOptions, { container: this.mapContainer.current }))
-    EVENTS.forEach(e => {
-      this.mapInstance.on(e, event => {
-        if (e === 'loadComplete') {
-          this.loadingTxt.current.style['zIndex'] = -10
-          this._configGestureEnableController()
-          this._initAllChildren(this.mapInstance)
-          initFloorsToMapInstance(this.mapInstance)
-        }
+    return new Promise((resolve, reject) => {
+      const { mapOptions, events, fengmapSDK } = this.props
+      if (!mapId || !fengmapSDK || isOrderIE()) {
+        return resolve()
+      }
+      if (this.mapInstance) {
+        this.mapContainer.current.innerHTML = ''
+      }
+      this.mapInstance = new fengmapSDK.FMMap(Object.assign({}, mapOptions, { container: this.mapContainer.current }))
+      EVENTS.forEach(e => {
+        this.mapInstance.on(e, event => {
+          if (e === 'loadComplete') {
+            this.loadingTxt.current.style['zIndex'] = -10
+            this._configGestureEnableController()
+            this._initAllChildren(this.mapInstance)
+            initFloorsToMapInstance(this.mapInstance)
+            resolve()
+          }
 
-        if (events && events[e]) {
-          events[e](event, this.mapInstance)
-        }
-        if (!this.mapInstance) {
-          return
-        }
-        if (events && events.mapHoverNode) {
-          this.mapInstance.gestureEnableController.enableMapHover = true
-        } else {
-          this.mapInstance.gestureEnableController.enableMapHover = false
-        }
+          if (events && events[e]) {
+            events[e](event, this.mapInstance)
+          }
+          if (!this.mapInstance) {
+            return
+          }
+          if (events && events.mapHoverNode) {
+            this.mapInstance.gestureEnableController.enableMapHover = true
+          } else {
+            this.mapInstance.gestureEnableController.enableMapHover = false
+          }
+        })
       })
-    })
 
-    this.mapInstance.openMapById(mapId)
+      this.mapInstance.openMapById(mapId)
+    })
   }
 
   _configGestureEnableController = () => {

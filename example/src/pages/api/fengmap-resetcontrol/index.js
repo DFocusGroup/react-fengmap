@@ -15,7 +15,6 @@ class FengmapResetControlDoc extends Component {
   render() {
     const { screenWidth } = this.props
     const contentWidth = screenWidth > 1000 ? screenWidth - 280 - 24 * 4 - 40 : screenWidth
-    console.log(fengmapSDK.controlPositon.RIGHT_BOTTOM)
     return (
       <React.Fragment>
         <Highlight language="jsx">
@@ -50,11 +49,6 @@ class FengmapResetControlDoc extends Component {
                   </a>
                 </React.Fragment>
               )
-            },
-            {
-              prop: 'delayed',
-              type: 'number',
-              description: <React.Fragment>延时点击时间，属于ctrlOpts中的属性</React.Fragment>
             }
           ]}
         />
@@ -121,8 +115,7 @@ export default function Example(props) {
     <FengmapResetControl
     ctrlOptions={{
       position: fengmapSDK.controlPositon.LEFT_TOP,
-      imgURL: resolvePublicPath('/assets/reset.png'),
-      delayed:5000
+      imgURL: resolvePublicPath('/assets/reset.png')
     }}
   />
   )
