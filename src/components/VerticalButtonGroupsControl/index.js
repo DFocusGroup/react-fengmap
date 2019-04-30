@@ -151,7 +151,7 @@ class VerticalButtonGroupsControl extends React.Component {
     const { showGroups } = this.state
     const { showBtnCount } = ctrlOptions
 
-    if (!showGroups) {
+    if (!showGroups || !map || !map.listFloors) {
       return null
     }
 

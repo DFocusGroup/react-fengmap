@@ -37,10 +37,14 @@ class FengmapFloorControl extends FengmapBaseControl {
     }
 
     this.resizeHandler = () => {
-      setTimeout(() => {
-        this.setState({
-          showHorizontal: map.height < 450
-        })
+      this.resizeTimer = setTimeout(() => {
+        try {
+          this.setState({
+            showHorizontal: map.height < 450
+          })
+        } catch (error) {
+          console.warn(error.message)
+        }
       }, 1000)
     }
 
@@ -53,6 +57,11 @@ class FengmapFloorControl extends FengmapBaseControl {
     })
 
     setTimeout(this.resizeHandler, 500)
+  }
+
+  unload = (map, fengmapSDK, parent) => {
+    clearTimeout(this.resizeTimer)
+    window.removeEventListener('resize', this.resizeHandler)
   }
 
   componentWillUnmount() {

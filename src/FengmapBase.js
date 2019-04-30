@@ -125,6 +125,17 @@ class FengmapBase extends Component {
     })
   }
 
+  _destroyAllChildren = map => {
+    const { fengmapSDK } = this.props
+    const { refs } = this
+    if (!isArray(refs)) {
+      return
+    }
+    refs.forEach(ref => {
+      ref.current.unload(map, fengmapSDK, this)
+    })
+  }
+
   componentDidMount() {
     this._loadMap(this.props.mapId)
     if (this.loadingTxt && this.loadingTxt.current) {
@@ -145,6 +156,9 @@ class FengmapBase extends Component {
     if (!this.mapInstance) {
       return
     }
+
+    this._destroyAllChildren(this.mapInstance)
+
     EVENTS.forEach(e => {
       this.mapInstance.off(e)
     })
