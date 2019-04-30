@@ -6,8 +6,11 @@ const RESET_STYLE = {
   width: '42PX',
   height: '42PX',
   backgroundSize: 'contain',
-  boxShadow: '0px 6px 14px 3px rgba(0, 0, 0, 0.11)'
+  boxShadow: 'rgba(0, 0, 0, 0.3) 2px 2px 3px',
+  cursor: 'pointer',
+  backgroundColor: '#fff'
 }
+let clickMark = true
 class FengmapResetControl extends FengmapBaseControl {
   static propTypes = {
     ctrlOptions: PropTypes.shape({
@@ -33,9 +36,16 @@ class FengmapResetControl extends FengmapBaseControl {
     })
   }
   resetMap = () => {
-    const { parent } = this.state
-    if (parent) {
+    const {
+      parent,
+      ctrlOptions: { delayed }
+    } = this.state
+    if (parent && clickMark) {
+      clickMark = false
       parent._loadMap(parent.props.mapId)
+      setTimeout(() => {
+        clickMark = true
+      }, delayed || 10000)
     }
   }
   render() {
@@ -58,12 +68,13 @@ function setResetPosition(ctrlOptions) {
     y = ctrlOptions.offset.y
   }
   let { imgURL } = ctrlOptions
+
   switch (position) {
     case 1:
       return { left: `${10 + x}px`, top: `${50 + y}px`, backgroundImage: `url(${imgURL})` }
-    case 2:
-      return { right: `${10 + x}px`, top: `${50 + y}px`, backgroundImage: `url(${imgURL})` }
     case 3:
+      return { right: `${10 + x}px`, top: `${50 + y}px`, backgroundImage: `url(${imgURL})` }
+    case 2:
       return { left: `${10 + x}px`, bottom: `${50 + y}px`, backgroundImage: `url(${imgURL})` }
     case 4:
       return { right: `${10 + x}px`, bottom: `${50 + y}px`, backgroundImage: `url(${imgURL})` }
