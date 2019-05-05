@@ -24,13 +24,13 @@ class VerticalButtonGroupsControl extends React.Component {
     super(props)
     this.state = {
       focusFloor: props.map.focusFloor,
-      showGroups: false
+      showGroups: false,
+      listFloors: null
     }
   }
 
   componentDidMount() {
     const { map } = this.props
-
     map.on('focusGroupIDChanged', () => {
       this.setState({
         focusFloor: map.focusFloor
@@ -39,7 +39,8 @@ class VerticalButtonGroupsControl extends React.Component {
 
     setTimeout(() => {
       this.setState({
-        focusFloor: map.focusFloor
+        focusFloor: map.focusFloor,
+        listFloors: map.listFloors
       })
     }, 500)
   }
@@ -123,12 +124,23 @@ class VerticalButtonGroupsControl extends React.Component {
     })
   }
 
-  _getFloorName = floorLevel => {
-    const { labelFormater } = this.props
+  _getFloorName = (floorLevel, floorNameType) => {
+    const {
+      labelFormater,
+      map: { focusFloor }
+    } = this.props
     if (!floorLevel || Number.isNaN(floorLevel)) {
       return ''
     }
-
+    //重置时重新设置楼层按钮显示
+    if (floorNameType === '1' && typeof focusFloor === 'undefined') {
+      floorLevel = this.state.listFloors[0]
+      setTimeout(() => {
+        this.setState({
+          focusFloor: floorLevel
+        })
+      }, 500)
+    }
     if (labelFormater) {
       return `${labelFormater(floorLevel)}`
     }
@@ -140,9 +152,11 @@ class VerticalButtonGroupsControl extends React.Component {
 
   _changeFloor = floor => {
     const { map } = this.props
-
     map.focusFloor = floor
-
+    //切换时存储最新的楼层信息
+    this.setState({
+      focusFloor: floor
+    })
     this._toggleShowGroups()
   }
 
@@ -150,7 +164,6 @@ class VerticalButtonGroupsControl extends React.Component {
     const { map, ctrlOptions } = this.props
     const { showGroups } = this.state
     const { showBtnCount } = ctrlOptions
-
     if (!showGroups || !map || !map.listFloors) {
       return null
     }
@@ -184,9 +197,7 @@ class VerticalButtonGroupsControl extends React.Component {
 
   render() {
     const { focusFloor } = this.state
-
     const containerPosition = this._getPosition()
-
     return (
       <div className={styles.verticalButtonGroup} style={containerPosition}>
         {this._getDisplayGroups(containerPosition)}
@@ -194,7 +205,7 @@ class VerticalButtonGroupsControl extends React.Component {
           className={classnames(styles.floorBlock, styles.withBorder, styles.active)}
           onClick={this._toggleShowGroups}
         >
-          {this._getFloorName(focusFloor)}
+          {this._getFloorName(focusFloor, '1')}
         </div>
       </div>
     )
