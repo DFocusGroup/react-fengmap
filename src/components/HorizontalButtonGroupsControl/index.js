@@ -43,7 +43,7 @@ class HorizontalButtonGroupsControl extends React.Component {
         focusFloor: map.focusFloor,
         listFloors: map.listFloors
       })
-    }, 500)
+    }, 50)
   }
 
   componentWillUnmount() {
