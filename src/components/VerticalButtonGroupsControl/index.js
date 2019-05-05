@@ -124,7 +124,7 @@ class VerticalButtonGroupsControl extends React.Component {
     })
   }
 
-  _getFloorName = (floorLevel, floorNameType) => {
+  _getFloorName = (floorLevel, isFocusFloorName) => {
     const {
       labelFormater,
       map: { focusFloor }
@@ -133,7 +133,7 @@ class VerticalButtonGroupsControl extends React.Component {
       return ''
     }
     //重置时重新设置楼层按钮显示
-    if (floorNameType === '1' && typeof focusFloor === 'undefined') {
+    if (isFocusFloorName && typeof focusFloor === 'undefined') {
       floorLevel = this.state.listFloors[0]
       setTimeout(() => {
         this.setState({
@@ -205,7 +205,7 @@ class VerticalButtonGroupsControl extends React.Component {
           className={classnames(styles.floorBlock, styles.withBorder, styles.active)}
           onClick={this._toggleShowGroups}
         >
-          {this._getFloorName(focusFloor, '1')}
+          {this._getFloorName(focusFloor, true)}
         </div>
       </div>
     )
