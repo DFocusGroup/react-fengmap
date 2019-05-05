@@ -139,7 +139,7 @@ class VerticalButtonGroupsControl extends React.Component {
         this.setState({
           focusFloor: floorLevel
         })
-      }, 500)
+      }, 50)
     }
     if (labelFormater) {
       return `${labelFormater(floorLevel)}`
