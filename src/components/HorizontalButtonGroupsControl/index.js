@@ -24,7 +24,8 @@ class HorizontalButtonGroupsControl extends React.Component {
     super(props)
     this.state = {
       focusFloor: props.map.focusFloor,
-      showGroups: false
+      showGroups: false,
+      listFloors: null
     }
   }
 
@@ -39,7 +40,8 @@ class HorizontalButtonGroupsControl extends React.Component {
 
     setTimeout(() => {
       this.setState({
-        focusFloor: map.focusFloor
+        focusFloor: map.focusFloor,
+        listFloors: map.listFloors
       })
     }, 500)
   }
@@ -125,13 +127,24 @@ class HorizontalButtonGroupsControl extends React.Component {
     })
   }
 
-  _getFloorName = floorLevel => {
-    const { labelFormater } = this.props
+  _getFloorName = (floorLevel, floorNameType) => {
+    const {
+      labelFormater,
+      map: { focusFloor }
+    } = this.props
 
     if (!floorLevel || Number.isNaN(floorLevel)) {
       return ''
     }
-
+    //重置时重新设置楼层按钮显示
+    if (floorNameType === '1' && typeof focusFloor === 'undefined' && floorLevel !== focusFloor) {
+      floorLevel = this.state.listFloors[0]
+      setTimeout(() => {
+        this.setState({
+          focusFloor: floorLevel
+        })
+      }, 500)
+    }
     if (labelFormater) {
       return `${labelFormater(floorLevel)}`
     }
@@ -146,7 +159,10 @@ class HorizontalButtonGroupsControl extends React.Component {
     const { map } = this.props
 
     map.focusFloor = floor
-
+    //切换时存储最新的楼层信息
+    this.setState({
+      focusFloor: floor
+    })
     this._toggleShowGroups()
   }
 
@@ -205,7 +221,7 @@ class HorizontalButtonGroupsControl extends React.Component {
           className={classnames(styles.floorBlock, styles.initFloor, styles.withBorder, styles.active)}
           onClick={this._toggleShowGroups}
         >
-          {this._getFloorName(focusFloor)}
+          {this._getFloorName(focusFloor, '1')}
         </div>
       </div>
     )
