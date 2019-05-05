@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import fengmapSDK from 'fengmap'
-import { FengmapBase, FengmapFloorControl, FengmapResetControl } from 'react-fengmap'
+import { FengmapBase, FengmapFloorControl } from 'react-fengmap'
 
 import Highlight from '../../../Components/Highlight'
 import withAPIDoc from '../../../Components/APIDoc'
@@ -85,12 +85,6 @@ class FengmapFloorControlDoc extends Component {
                 showBtnCount: 4
               }}
               labelFormater={v => v + 'F'}
-            />
-            <FengmapResetControl
-              ctrlOptions={{
-                position: fengmapSDK.controlPositon.LEFT_BOTTOM,
-                imgURL: resolvePublicPath('/assets/reset.png')
-              }}
             />
           </FengmapBase>
 
