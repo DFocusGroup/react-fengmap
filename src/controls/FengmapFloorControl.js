@@ -26,7 +26,8 @@ class FengmapFloorControl extends FengmapBaseControl {
       showHorizontal: false,
       ctrlOptions: null,
       map: null,
-      fengmapSDK: null
+      fengmapSDK: null,
+      mapOnloadOver: false
     }
   }
 
@@ -49,11 +50,11 @@ class FengmapFloorControl extends FengmapBaseControl {
     }
 
     window.addEventListener('resize', this.resizeHandler)
-
     this.setState({
       ctrlOptions,
       map,
-      fengmapSDK
+      fengmapSDK,
+      mapOnloadOver: true
     })
 
     setTimeout(this.resizeHandler, 500)
@@ -62,6 +63,9 @@ class FengmapFloorControl extends FengmapBaseControl {
   unload = (map, fengmapSDK, parent) => {
     clearTimeout(this.resizeTimer)
     window.removeEventListener('resize', this.resizeHandler)
+    this.setState({
+      mapOnloadOver: false
+    })
   }
 
   componentWillUnmount() {
@@ -70,12 +74,15 @@ class FengmapFloorControl extends FengmapBaseControl {
 
   render() {
     const { labelFormater } = this.props
-    const { showHorizontal, ctrlOptions, map, fengmapSDK } = this.state
+    const { showHorizontal, ctrlOptions, map, fengmapSDK, mapOnloadOver } = this.state
 
     if (!map) {
       return null
     }
     const ButtonGroupsControl = showHorizontal ? HorizontalButtonGroupsControl : VerticalButtonGroupsControl
+    if (!mapOnloadOver) {
+      return null
+    }
     return (
       <ButtonGroupsControl
         ctrlOptions={ctrlOptions || {}}
@@ -83,6 +90,7 @@ class FengmapFloorControl extends FengmapBaseControl {
         sdk={fengmapSDK}
         map={map}
         labelFormater={labelFormater}
+        mapOnloadOver={mapOnloadOver}
       />
     )
   }
