@@ -1,12 +1,16 @@
 import { grabNumbers } from './object'
 
 export function getFloors(map) {
-  return map.listGroups.map(g => {
-    if (g.gname.toLowerCase().indexOf('f') > -1) {
-      return +g.gname.match(/\d+/)[0]
-    }
-    return +g.gname.match(/\d+/)[0] * -1
-  })
+  try {
+    return map.listGroups.map(g => {
+      if (g.gname.toLowerCase().indexOf('f') > -1) {
+        return +g.gname.match(/\d+/)[0]
+      }
+      return +g.gname.match(/\d+/)[0] * -1
+    })
+  } catch (error) {
+    return false
+  }
 }
 
 export function initFloorsToMapInstance(map) {
