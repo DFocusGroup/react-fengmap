@@ -99,7 +99,7 @@ function getResetPosition(ctrlOptions) {
     case 2:
       return { left: `${10 + x}px`, bottom: `${50 + y}px`, backgroundImage: `url(${imgURL})` }
     case 4:
-      return { right: `${10 + x}px`, bottom: `${100 + y}px`, backgroundImage: `url(${imgURL})` }
+      return { right: `${10 + x}px`, bottom: `${50 + y}px`, backgroundImage: `url(${imgURL})` }
     default:
       return { right: `${10 + x}px`, bottom: `${50 + y}px`, backgroundImage: "url('/assets/reset.png')" }
   }
