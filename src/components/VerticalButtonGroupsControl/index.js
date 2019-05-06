@@ -17,7 +17,8 @@ class VerticalButtonGroupsControl extends React.Component {
         y: PropTypes.number
       })
     }),
-    labelFormater: PropTypes.func
+    labelFormater: PropTypes.func,
+    mapOnloadOver: PropTypes.bool
   }
 
   constructor(props) {
@@ -197,9 +198,13 @@ class VerticalButtonGroupsControl extends React.Component {
 
   render() {
     const { focusFloor } = this.state
+    const { mapOnloadOver } = this.props
     const containerPosition = this._getPosition()
     return (
-      <div className={styles.verticalButtonGroup} style={containerPosition}>
+      <div
+        className={styles.verticalButtonGroup}
+        style={Object.assign({}, containerPosition, { display: mapOnloadOver ? 'block' : 'none' })}
+      >
         {this._getDisplayGroups(containerPosition)}
         <div
           className={classnames(styles.floorBlock, styles.withBorder, styles.active)}
