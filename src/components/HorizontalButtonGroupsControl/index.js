@@ -122,6 +122,13 @@ class HorizontalButtonGroupsControl extends React.Component {
   }
 
   _toggleShowGroups = () => {
+    const { map } = this.props
+    try {
+      console.log(map.listFloors)
+    } catch (error) {
+      console.log(error)
+      return false
+    }
     this.setState({
       showGroups: !this.state.showGroups
     })

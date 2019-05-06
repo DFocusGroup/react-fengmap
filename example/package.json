@@ -13,9 +13,9 @@
     "lodash": "^4.17.11",
     "path-to-regexp": "^2.4.0",
     "react": "^16.8.6",
-    "react-syntax-highlighter": "^10.2.1",
     "react-dom": "^16.8.6",
-    "react-fengmap": "file:.."
+    "react-fengmap": "file:..",
+    "react-syntax-highlighter": "^10.2.1"
   },
   "scripts": {
     "start": "umi dev",
