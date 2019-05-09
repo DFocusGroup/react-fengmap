@@ -197,7 +197,6 @@ class FengmapBase extends Component {
     const cloneChildren = cloneElements(children)
     if (cloneChildren) {
       this.refs = cloneChildren.map(c => c.ref)
-      console.log(1, this.refs)
     }
     return (
       <div style={Object.assign({}, style, { position: 'relative' })} ref={reference}>
