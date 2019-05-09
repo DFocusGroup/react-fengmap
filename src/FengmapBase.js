@@ -132,7 +132,9 @@ class FengmapBase extends Component {
       return
     }
     refs.forEach(ref => {
-      ref.current.unload(map, fengmapSDK, this)
+      if (ref.current.unload) {
+        ref.current.unload(map, fengmapSDK, this)
+      }
     })
   }
 
@@ -195,6 +197,7 @@ class FengmapBase extends Component {
     const cloneChildren = cloneElements(children)
     if (cloneChildren) {
       this.refs = cloneChildren.map(c => c.ref)
+      console.log(1, this.refs)
     }
     return (
       <div style={Object.assign({}, style, { position: 'relative' })} ref={reference}>
