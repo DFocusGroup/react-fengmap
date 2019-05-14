@@ -30,3 +30,13 @@ export function pick(obj, keys) {
 
   return newObj
 }
+
+export function flatten(arr) {
+  if (!arr || !arr.length) {
+    return []
+  }
+  if (!isArray(arr)) {
+    return [arr]
+  }
+  return arr.reduce((pre, next) => pre.concat(flatten(next)), [])
+}

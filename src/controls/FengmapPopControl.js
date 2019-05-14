@@ -11,9 +11,6 @@ export default class FengmapPopControl extends FengmapBaseControl {
     style: PropTypes.object,
     children: PropTypes.any,
     visible: PropTypes.bool,
-    map: PropTypes.any,
-    onClose: PropTypes.func,
-    handleOk: PropTypes.func,
     fidPosition: PropTypes.shape({
       x: PropTypes.number,
       y: PropTypes.number
@@ -25,8 +22,8 @@ export default class FengmapPopControl extends FengmapBaseControl {
     super(props)
     this.container = React.createRef()
     this.state = {
-      map: props.map,
-      parent: props.parent,
+      map: null,
+      parent: null,
       scrollTop: getheight()
     }
   }

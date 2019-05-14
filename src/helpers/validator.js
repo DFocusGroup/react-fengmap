@@ -1,4 +1,4 @@
-import { isArray } from './object'
+import { isArray, flatten } from './object'
 import { VALID_SUB_COMPONENTS } from '../bases'
 
 export function isChildrenValid(children) {
@@ -12,19 +12,10 @@ export function isChildrenValid(children) {
     }
     return true
   }
-  const newChildren = getChildren(children)
-  const child = newChildren.find(child => VALID_SUB_COMPONENTS.every(c => !(child.type.prototype instanceof c)))
+  const flattenedChildren = flatten(children)
+  const child = flattenedChildren.find(child => VALID_SUB_COMPONENTS.every(c => !(child.type.prototype instanceof c)))
   if (child) {
     throw new Error(`${child} is not a valid child for <FengmapBase />`)
   }
   return true
-}
-
-function getChildren(children) {
-  return children.reduce((pre, next) => {
-    if (!isArray(next)) {
-      return [...pre, next]
-    }
-    return [...pre, ...getChildren(next)]
-  }, [])
 }
