@@ -13,6 +13,7 @@ const EVENTS = [
   'mapScaleLevelChanged',
   'scaleLevelChanged',
   'visibleGroupIDsChanged'
+  // 'update'
 ]
 
 const INNER_STYLE = {

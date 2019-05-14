@@ -7,6 +7,7 @@ export { default as FengmapFloorControl } from './controls/FengmapFloorControl'
 export { default as Fengmap3DControl } from './controls/Fengmap3DControl'
 export { default as FengmapCompassControl } from './controls/FengmapCompassControl'
 export { default as FengmapResetControl } from './controls/FengmapResetControl'
+export { default as FengmapPopControl } from './controls/FengmapPopControl'
 
 export { default as FengmapImageMarker } from './overlays/FengmapImageMarker'
 export { default as FengmapNavigation } from './overlays/FengmapNavigation'
