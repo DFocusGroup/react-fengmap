@@ -41,6 +41,11 @@ export const controlRoutes = [
     url: '/api/fengmap-compasscontrol',
     displayTitle: '<FengmapCompassControl />',
     description: '指北针控件'
+  },
+  {
+    url: '/api/fengmap-popcontrol',
+    displayTitle: '<FengmapPopControl />',
+    description: 'Pop控件'
   }
 ]
 
