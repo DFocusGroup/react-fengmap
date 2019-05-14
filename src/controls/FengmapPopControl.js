@@ -3,9 +3,9 @@ import FengmapBaseControl from '../bases/FengmapBaseControl'
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import { relative } from 'path'
+// import { relative } from 'path'
 
-class Portal extends FengmapBaseControl {
+export default class FengmapPopControl extends FengmapBaseControl {
   static propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
@@ -26,14 +26,29 @@ class Portal extends FengmapBaseControl {
     this.container = React.createRef()
     this.state = {
       map: props.map,
-      fidPosition: props.fidPosition,
-      visible: props.visible,
       parent: props.parent,
-      scrollTop: getheight(),
-      topNumber: props.topNumber,
-      leftNumber: props.leftNumber
+      scrollTop: getheight()
     }
   }
+
+  load = (map, fengmapSDK, parent) => {
+    this.setState({
+      map: map,
+      parent
+    })
+    setTimeout(() => {
+      this.setState({
+        mapOnloadOver: true
+      })
+    }, 200)
+  }
+
+  unload = () => {
+    this.setState({
+      map: null
+    })
+  }
+
   renderChildren() {
     const container = document.createElement('div')
     document.body.appendChild(container)
@@ -77,7 +92,8 @@ class Portal extends FengmapBaseControl {
   }
 
   _updateInfoWindow = () => {
-    const { map, fidPosition, scrollTop, topNumber, leftNumber } = this.state
+    const { map, scrollTop } = this.state
+    const { topNumber = 550, leftNumber = 300, fidPosition } = this.props
     if (!map || !fidPosition || !this.container.current) {
       return
     }
@@ -96,8 +112,8 @@ class Portal extends FengmapBaseControl {
   }
 
   render() {
-    const { visible, map } = this.state
-    const { className } = this.props
+    const { map } = this.state
+    const { className, visible } = this.props
     if (!visible || !map) {
       return null
     }
@@ -105,79 +121,6 @@ class Portal extends FengmapBaseControl {
       <div ref={this.container} className={classnames(className)}>
         {this.props.children}
         <div />
-      </div>
-    )
-  }
-}
-
-export default class Pop extends FengmapBaseControl {
-  static propTypes = {
-    className: PropTypes.string,
-    positionArr: PropTypes.array,
-    topNumber: PropTypes.number,
-    leftNumber: PropTypes.number
-  }
-  constructor(props) {
-    super(props)
-    this.state = {
-      map: null,
-      parent: null,
-      positionArr: [],
-      topNumber: 0,
-      leftNumber: 0
-    }
-  }
-  load = (map, fengmapSDK, parent) => {
-    const { positionArr, topNumber, leftNumber } = this.props
-    this.setState({
-      map: map,
-      parent,
-      positionArr,
-      topNumber: topNumber ? topNumber : 550,
-      leftNumber: leftNumber ? leftNumber : 300
-    })
-    setTimeout(() => {
-      this.setState({
-        mapOnloadOver: true
-      })
-    }, 200)
-  }
-
-  unload = () => {
-    console.log('卸载')
-    this.setState({
-      map: null
-    })
-  }
-  render() {
-    const { positionArr, map, topNumber, leftNumber } = this.state
-    const { className } = this.props
-    if (!map) {
-      return null
-    }
-    return (
-      <div style={{ position: relative, zIndex: -3 }}>
-        {positionArr.map((value, index) => {
-          const { visible, x, y } = value
-          if (!visible) {
-            return null
-          }
-          const obj = {
-            fidPosition: {
-              x,
-              y
-            },
-            visible,
-            map,
-            topNumber,
-            leftNumber
-          }
-          return (
-            <Portal {...obj} className={className} key={index}>
-              {this.props.children}
-            </Portal>
-          )
-        })}
       </div>
     )
   }

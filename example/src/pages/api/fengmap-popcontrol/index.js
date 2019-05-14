@@ -58,6 +58,7 @@ class FengmapPopControlDoc extends Component {
   render() {
     const { screenWidth } = this.props
     const contentWidth = screenWidth > 1000 ? screenWidth - 280 - 24 * 4 - 40 : screenWidth
+
     return (
       <React.Fragment>
         <Highlight language="jsx">
@@ -80,38 +81,21 @@ class FengmapPopControlDoc extends Component {
         <PropsDoc
           data={[
             {
-              prop: 'positionArr',
-              type: 'array',
+              prop: 'fidPosition',
+              type: 'object',
               description: (
                 <React.Fragment>
                   {` {
                       x: 12961582.555, 
                       y: 4861820.195, 
-                      visible: true,  
-                      FID: '90369017' 
                     }`}
                 </React.Fragment>
               )
             },
             {
-              prop: 'x',
-              type: 'number',
-              description: <React.Fragment>{`地图坐标x值`}</React.Fragment>
-            },
-            {
-              prop: 'y',
-              type: 'number',
-              description: <React.Fragment>{` 地图坐标y值`}</React.Fragment>
-            },
-            {
               prop: 'visible',
               type: 'boolean',
               description: <React.Fragment>{`显示为true，不显示fasle`}</React.Fragment>
-            },
-            {
-              prop: 'FID',
-              type: 'string',
-              description: <React.Fragment>{`FID`}</React.Fragment>
             },
             {
               prop: 'topNumber',
@@ -154,11 +138,22 @@ class FengmapPopControlDoc extends Component {
               height: '750px'
             }}
           >
-            <FengmapPopControl positionArr={positionArr} className={styles.popModal} topNumber={800}>
-              <div className={styles.content}>
-                <div>我是pop</div>
-              </div>
-            </FengmapPopControl>
+            {positionArr.map((value, index) => {
+              return (
+                <FengmapPopControl
+                  fidPosition={value}
+                  key={index}
+                  className={styles.popModal}
+                  topNumber={700}
+                  visible={true}
+                >
+                  <div className={styles.content}>
+                    <div>我是pop</div>
+                  </div>
+                </FengmapPopControl>
+              )
+            })}
+
             <FengmapResetControl
               ctrlOptions={{
                 position: fengmapSDK.controlPositon.RIGHT_BOTTOM,
@@ -257,11 +252,21 @@ class FengmapPopControlDoc extends Component {
         height: '750px'
       }}
     >
-      <FengmapPopControl positionArr={positionArr} className={styles.popModal}>
-        <div className={styles.content}>
-          <div>我是pop</div>
-        </div>
-      </FengmapPopControl>
+    {positionArr.map((value, index) => {
+      return (
+        <FengmapPopControl
+          fidPosition={value}
+          key={index}
+          className={styles.popModal}
+          topNumber={800}
+          visible={true}
+        >
+          <div className={styles.content}>
+            <div>我是pop</div>
+          </div>
+        </FengmapPopControl>
+      )
+    })}
       <FengmapResetControl
         ctrlOptions={{
           position: fengmapSDK.controlPositon.RIGHT_BOTTOM,
