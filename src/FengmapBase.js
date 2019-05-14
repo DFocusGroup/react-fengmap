@@ -229,14 +229,24 @@ function cloneElements(children) {
       }
     ]
   }
-  return children.map((child, i) => {
-    const ref = React.createRef()
-    return {
-      child: React.cloneElement(child, {
-        ref,
-        key: i
-      }),
-      ref
+  return getElements(children)
+}
+
+function getElements(children) {
+  return children.reduce((pre, next, i) => {
+    if (!isArray(next)) {
+      const ref = React.createRef()
+      return [
+        ...pre,
+        {
+          child: React.cloneElement(next, {
+            ref,
+            key: i
+          }),
+          ref
+        }
+      ]
     }
-  })
+    return [...pre, ...getElements(next)]
+  }, [])
 }
