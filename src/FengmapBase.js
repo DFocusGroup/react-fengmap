@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import uuid from 'uuid'
 import { isChildrenValid } from './helpers/validator'
 import { isArray, isFunction } from './helpers/object'
 import { isOrderIE } from './helpers/browser'
 import { initFloorsToMapInstance } from './helpers/map'
+import { uuid } from './helpers/object'
 
 const EVENTS = [
   'focusGroupIDChanged',
@@ -242,7 +242,7 @@ function getElements(children) {
         {
           child: React.cloneElement(next, {
             ref,
-            key: uuid.v1()
+            key: uuid()
           }),
           ref
         }
