@@ -13,12 +13,14 @@ const positionArr = [
   {
     x: 12961692.505,
     y: 4861851.9350000005,
+    z: 0,
     visible: true,
     FID: '903690116'
   },
   {
     x: 12961582.555,
     y: 4861820.195,
+    z: 0,
     visible: true,
     FID: '90369017'
   }
@@ -33,7 +35,7 @@ class FengmapPopControlDoc extends Component {
     if (!e.FID) {
       return
     }
-    console.log('fid', e.FID)
+    console.log('fid', e)
   }
 
   _onMapLoaded = (e, map) => {
@@ -64,15 +66,24 @@ class FengmapPopControlDoc extends Component {
         <Highlight language="jsx">
           {`// 基础地图
 <FengmapBase mapId={MapId} style={Style} fengmapSDK={SDK} mapOptions={MapOptions} >
-  <FengmapResetControl ctrlOptions={CtrlOptions} />
-</FengmapBase>
-
 // 带Pop的地图
-<FengmapPopControl positionArr={positionArr} className={styles.popModal}>
-<div className={styles.content}>
-  <div>我是pop</div>
-</div>
-</FengmapPopControl>
+      <FengmapPopControl
+        fidPosition={value}
+        key={index}
+        className={styles.popModal}
+        visible={true}
+        ctrlOptions={{
+        offset: {
+          x: 230,
+          y: 620
+        }
+        }}
+        >
+        <div className={styles.content}>
+        <div>我是pop</div>
+        </div>
+      </FengmapPopControl>
+</FengmapBase>
 `}
         </Highlight>
 
@@ -98,14 +109,20 @@ class FengmapPopControlDoc extends Component {
               description: <React.Fragment>{`显示为true，不显示fasle`}</React.Fragment>
             },
             {
-              prop: 'topNumber',
-              type: 'number',
-              description: <React.Fragment>{`topNumber 可选类型，调整pop离顶部的高度`}</React.Fragment>
-            },
-            {
-              prop: 'leftNumber',
-              type: 'number',
-              description: <React.Fragment>{` leftNumber  可选类型，调整pop离左边的高度`}</React.Fragment>
+              prop: 'ctrlOptions',
+              type: 'object',
+              description: (
+                <React.Fragment>
+                  请参考
+                  <a
+                    href="https://www.fengmap.com/docs/js/v2.2.0_beta/classes/fengmap.zoomControl.html"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ctrlOpts
+                  </a>
+                </React.Fragment>
+              )
             }
           ]}
         />
@@ -144,8 +161,13 @@ class FengmapPopControlDoc extends Component {
                   fidPosition={value}
                   key={index}
                   className={styles.popModal}
-                  topNumber={700}
                   visible={true}
+                  ctrlOptions={{
+                    offset: {
+                      x: 230,
+                      y: 700
+                    }
+                  }}
                 >
                   <div className={styles.content}>
                     <div>我是pop</div>

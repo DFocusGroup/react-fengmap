@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import uuid from 'uuid'
 import { isChildrenValid } from './helpers/validator'
 import { isArray, isFunction } from './helpers/object'
 import { isOrderIE } from './helpers/browser'
@@ -241,7 +242,7 @@ function getElements(children) {
         {
           child: React.cloneElement(next, {
             ref,
-            key: i
+            key: uuid.v1()
           }),
           ref
         }

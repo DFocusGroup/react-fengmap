@@ -3,7 +3,6 @@ import FengmapBaseControl from '../bases/FengmapBaseControl'
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-// import { relative } from 'path'
 
 export default class FengmapPopControl extends FengmapBaseControl {
   static propTypes = {
@@ -12,6 +11,11 @@ export default class FengmapPopControl extends FengmapBaseControl {
     children: PropTypes.any,
     visible: PropTypes.bool,
     fidPosition: PropTypes.shape({
+      x: PropTypes.number,
+      y: PropTypes.number,
+      z: PropTypes.number
+    }),
+    ctrlOptions: PropTypes.shape({
       x: PropTypes.number,
       y: PropTypes.number
     }),
@@ -24,7 +28,9 @@ export default class FengmapPopControl extends FengmapBaseControl {
     this.state = {
       map: null,
       parent: null,
-      scrollTop: getheight()
+      scrollTop: getheight(),
+      parentLeft: 0,
+      parentTop: 0
     }
   }
 
@@ -34,13 +40,32 @@ export default class FengmapPopControl extends FengmapBaseControl {
       parent
     })
     setTimeout(() => {
-      this.setState({
-        mapOnloadOver: true
-      })
-    }, 200)
+      const element = this.container.current
+      // 获取父元素 的 offsetLeft  offsetTop 和当前的滚动高度
+      const parentLeft = element.parentNode.offsetLeft
+      const parentTop = element.parentNode.offsetTop
+      this.container.current.style.display = 'block'
+      const scrollTop = getheight()
+      this.setState(
+        {
+          parentTop,
+          parentLeft,
+          scrollTop
+        },
+        () => {
+          this._updateInfoWindow()
+        }
+      )
+      window.addEventListener('scroll', this.scrollHandler)
+    }, 0)
   }
 
   unload = () => {
+    const { map } = this.state
+    // 移除监听事件 并把 map制空 让pop消失
+    window.removeEventListener('scroll', this.scrollHandler)
+    map.off('update')
+    this.listened = false
     this.setState({
       map: null
     })
@@ -53,16 +78,19 @@ export default class FengmapPopControl extends FengmapBaseControl {
     document.body.removeChild(container)
   }
   componentDidMount() {
-    window.addEventListener('scroll', this.scrollHandler)
     this.renderChildren()
-    this._listenMapUpdate()
   }
 
   scrollHandler = event => {
     let scrollTop = getheight()
-    this.setState({
-      scrollTop
-    })
+    this.setState(
+      {
+        scrollTop
+      },
+      () => {
+        this._updateInfoWindow()
+      }
+    )
   }
 
   componentDidUpdate(prevProps) {
@@ -80,30 +108,37 @@ export default class FengmapPopControl extends FengmapBaseControl {
 
   _listenMapUpdate = () => {
     const { map } = this.state
-    if (!map) {
+    if (!map || this.listened) {
       return
     }
     this._updateInfoWindow()
-    map.listened = true
+    this.listened = true
     map.on('update', this._updateInfoWindow)
   }
 
   _updateInfoWindow = () => {
-    const { map, scrollTop } = this.state
-    const { topNumber = 550, leftNumber = 300, fidPosition } = this.props
+    const { map, scrollTop, parentLeft, parentTop } = this.state
+    const { fidPosition, ctrlOptions } = this.props
     if (!map || !fidPosition || !this.container.current) {
       return
     }
+
+    let x = parentLeft
+    let y = parentTop
+    if (ctrlOptions && ctrlOptions.offset && ctrlOptions.offset.x) {
+      x = ctrlOptions.offset.x
+    }
+    if (ctrlOptions && ctrlOptions.offset && ctrlOptions.offset.y) {
+      y = ctrlOptions.offset.y
+    }
+
     const element = this.container.current
     const initPosition = {
-      ...fidPosition,
-      z: map.getGroupHeight(map.focusGroupID)
+      ...fidPosition
     }
     const mapPosition = map.coordMapToScreen(initPosition.x, initPosition.y, initPosition.z)
-    const h = element.offsetHeight
-    const w = element.offsetWidth / 2
-    const top = mapPosition.y - h + topNumber - scrollTop + 'px'
-    const left = mapPosition.x - w + leftNumber + 'px'
+    const top = mapPosition.y + y - scrollTop + 'px'
+    const left = mapPosition.x + x + 'px'
     element.style.top = top //弹出框上移一点 + 并且忽略header
     element.style.left = left //弹出框左移半个弹出框宽度，并且忽略左侧边栏
   }
