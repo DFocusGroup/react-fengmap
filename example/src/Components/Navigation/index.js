@@ -55,7 +55,7 @@ class Navigation extends Component {
           padding: `0px ${inSmallScreen ? '10px' : '50px'}`
         }}
       >
-        <a href="https://github.com/DFocusFE/react-fengmap">
+        <a href="https://github.com/DFocusGroup/react-fengmap">
           <img
             style={{
               position: 'absolute',

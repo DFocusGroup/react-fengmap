@@ -11,7 +11,7 @@
 npm install --save react-fengmap
 ```
 
-完整 API 使用文档，请[这边走](https://dfocusfe.github.io/react-fengmap)
+完整 API 使用文档，请[这边走](https://DFocusGroup.github.io/react-fengmap)
 
 ## Usage
 
@@ -79,10 +79,10 @@ class Example extends Component {
 
 ## LICENSE
 
-[MIT License](https://raw.githubusercontent.com/DFocusFE/react-fengmap/master/LICENSE)
+[MIT License](https://raw.githubusercontent.com/DFocusGroup/react-fengmap/master/LICENSE)
 
 [npm-url]: https://npmjs.org/package/react-fengmap
 [npm-image]: https://badge.fury.io/js/react-fengmap.png
-[david-url]: https://david-dm.org/DFocusFE/react-fengmap.png
+[david-url]: https://david-dm.org/DFocusGroup/react-fengmap.png
 [dt-url]: https://img.shields.io/npm/dt/react-fengmap.svg
 [license-url]: https://img.shields.io/npm/l/react-fengmap.svg

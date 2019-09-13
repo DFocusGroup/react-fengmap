@@ -7,7 +7,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DFocusFE/react-fengmap.git"
+    "url": "git+https://github.com/DFocusGroup/react-fengmap.git"
   },
   "main": "dist/index.js",
   "module": "dist/index.es.js",
