@@ -3,6 +3,9 @@ import { grabNumbers } from './object'
 export function getFloors(map) {
   try {
     return map.listGroups.map(g => {
+      if(!g.gname.match(/\d+/)) {
+        return g.gname
+      }
       if (g.gname.toLowerCase().indexOf('f') > -1) {
         return +g.gname.match(/\d+/)[0]
       }
