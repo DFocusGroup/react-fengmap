@@ -4,7 +4,7 @@ import { isChildrenValid } from './helpers/validator'
 import { isArray, isFunction } from './helpers/object'
 import { isOrderIE } from './helpers/browser'
 import { initFloorsToMapInstance } from './helpers/map'
-import { uuid } from './helpers/object'
+// import { uuid } from './helpers/object'
 
 const EVENTS = [
   'focusGroupIDChanged',
@@ -233,8 +233,9 @@ function cloneElements(children) {
   return getElements(children)
 }
 
-function getElements(children) {
+function getElements(children, count) {
   return children.reduce((pre, next, i) => {
+    const childKey = typeof count === 'number' ? `${count}-${i}` : i
     if (!isArray(next)) {
       const ref = React.createRef()
       return [
@@ -242,12 +243,13 @@ function getElements(children) {
         {
           child: React.cloneElement(next, {
             ref,
-            key: uuid()
+            key: childKey
           }),
           ref
         }
       ]
     }
-    return [...pre, ...getElements(next)]
+
+    return [...pre, ...getElements(next, childKey)]
   }, [])
 }
